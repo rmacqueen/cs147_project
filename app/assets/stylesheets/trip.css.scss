@@ -1,3 +1,59 @@
 // Place all the styles related to the trip controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.cover, .left_block{
+	border-style:solid;
+	border-width:2px;
+	border-color:green;
+}
+
+.cover{
+	background-color:blue;
+	width:100%;
+	height:300px;
+
+
+}
+
+.left_block{
+	background-color:green;
+	width:48%;
+	height:300px;
+	float:left;
+}
+
+.top_small{
+	background-color:red;
+	width:50%;
+	height:150px;	
+	float:left;
+}
+
+.bottom_small{
+	background-color:yellow;
+	width:50%;
+	height:150px;
+	float:left;
+}
+
+.baseline{
+	width:100%;
+	height:150px;
+	clear:both
+}
+
+.baseline #soundcloud{
+	width:100%;
+ height:100%;
+}
+
+.cover_image{
+	width:100%;
+	height:100%;
+}
+
+.left_block #youtube{
+ width:100%;
+ height:100%;
+}
