@@ -1,0 +1,55 @@
+<section id="content" class="body">
+        	<h2> Day 1! </h2>
+
+        	<iframe id="youtube" width="460" height="215" src="http://www.youtube.com/embed/SeoX8MZd81E" frameborder="0" allowfullscreen></iframe>
+
+          <iframe width="20%" height="166" scrolling="no" frameborder="no" src="http://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F7753324&show_artwork=true"></iframe>
+
+
+
+        	 <section id="wrapper">
+ 
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <article>
+
+    </article>
+<script>
+function success(position) {
+ 
+  var mapcanvas = document.createElement('div');
+  mapcanvas.id = 'mapcanvas';
+  mapcanvas.style.height = '400px';
+  mapcanvas.style.width = '560px';
+ 
+  document.querySelector('article').appendChild(mapcanvas);
+
+  var latlng = new google.maps.LatLng(51.52, 0.1062);
+  var myOptions = {
+    zoom: 5,
+    center: latlng,
+    mapTypeControl: false,
+    navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  var map = new google.maps.Map(document.getElementById("mapcanvas"), myOptions);
+ 
+  var marker = new google.maps.Marker({
+      position: latlng,
+      map: map,
+      title:"You are here!"
+  });
+}
+ success(0);
+
+ 
+</script>
+</section>
+
+<%= image_tag "/res/postit.gif", :id => "postitnote" %>
+<%= image_tag "/res/Urban_backpacking.jpeg",  :id => "gah"%>
+
+
+
+
+      
+        </section><!-- /#content --> 

@@ -1,0 +1,20 @@
+<section id="content" class="body">
+            <div id="register-container">
+                <div id="splash">
+                    <img border="0" src="/res/backpacking1.jpeg" alt="vidPic" width="494" height="329"/>
+                </div>
+
+                <% if flash[:notice] %>
+                    <%= flash[:notice] %>
+                <% end %>
+
+                <%= form_for @user, :url => {:action => :post_register} do |f| %>
+  					First name: <%= f.text_field(:first_name) %><br />
+  					Last name: <%= f.text_field(:last_name) %><br />
+  					Email: <%= f.text_field(:email) %><br />
+  					Password: <%= f.password_field(:password) %><br />
+
+ 					<%= submit_tag "Create Account" %>
+<% end %>
+            </div>
+        </section><!-- /#content --> 
