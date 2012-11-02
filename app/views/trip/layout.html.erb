@@ -8,21 +8,29 @@
 
 <!--	
         	
-<div class="cover"><%= image_tag "http://www.premiumcovers.net/covers/balloons-sunset-view-facebook-cover.jpg", :alt => "Balloon", :class => "cover_image" %> </div>
+<div class="cover"><%= render :partial => "image", :locals => {:content => "http://www.premiumcovers.net/covers/balloons-sunset-view-facebook-cover.jpg", :alt => "Balloons"} %></div>
 
+<<<<<<< HEAD
 <iframe id="youtube" width="700" height="400" src="http://www.youtube.com/embed/SeoX8MZd81E" frameborder="0" allowfullscreen></iframe> 
+=======
+<div class="left_block"><%= render :partial => "video", :locals => {:content => "http://www.youtube.com/embed/SeoX8MZd81E", :width => "600", :height => "400"} %></div>
+>>>>>>> 2b3831b2e14217a0b6fd4d0996bc5e3e487e5a8a
 
-<div class="top_small"><p>There are other problems. The social stealth element of Assassin's Creed was stretched thin in Assassin's Creed: Revelations, but it's almost at its breaking point in Assassin's Creed 3. Being able to blend into crowds doesn't cut it anymore — it's too easy to get caught — and the addition of brush to blend into barely makes up the difference. This is especially problematic during mobile eavesdropping missions, where not keeping up or being spotted will result in automatic failure. But it also makes pulling off perfect assassinations exercises in trial and error.
+<div class="top_small"><%= render :partial => "text", :locals => {:content => "There are other problems. The social stealth element of Assassin's Creed was stretched thin in Assassin's Creed: Revelations, but it's almost at its breaking point in Assassin's Creed 3. Being able to blend into crowds doesn't cut it anymore — it's too easy to get caught — and the addition of brush to blend into barely makes up the difference. This is especially problematic during mobile eavesdropping missions, where not keeping up or being spotted will result in automatic failure. But it also makes pulling off perfect assassinations exercises in trial and error.
 
-These are small sections of Assassin's Creed 3 comparatively speaking, but they are a thumb in the eye of what might be the most ambitious Assassin's game. It's so disappointing because everything else is so good.</p> </div>
+These are small sections of Assassin's Creed 3 comparatively speaking, but they are a thumb in the eye of what might be the most ambitious Assassin's game. It's so disappointing because everything else is so good."} %></div>
 
-<div class="bottom_small"> <%= image_tag "http://3.bp.blogspot.com/-k7o6wicJku0/Tsnlgsadw9I/AAAAAAAAPLU/dBZhHgbpVP4/s1600/big-ben.jpg", :alt => "big ben", :class => "cover_image" %> </div>
+<div class="bottom_small"><%= render :partial => "image", :locals => {:content => "http://3.bp.blogspot.com/-k7o6wicJku0/Tsnlgsadw9I/AAAAAAAAPLU/dBZhHgbpVP4/s1600/big-ben.jpg", :alt => "big ben"} %> </div>
 
 
+<<<<<<< HEAD
 
 
 
 <iframe id="soundcloud" scrolling="no" frameborder="no" src="http://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F7753324&show_artwork=true"></iframe>
+=======
+<div class="baseline"><%= render :partial => "audio", :locals => {:content => "http://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F7753324&show_artwork=true", :alt => "Balloons"} %></div>
+>>>>>>> 2b3831b2e14217a0b6fd4d0996bc5e3e487e5a8a
       
       --> 
 
