@@ -2,9 +2,12 @@
 
 <% for content in @all_content %>
 
-	<%= render :partial => "image", :locals => {:content => content.value, :width => content.width, :height => content.height} %>
+	<%= render :partial => "image", :locals => {:content => content.value, :width => content.width, :height => content.height, :alt => "hello world"} %>
 
 <% end %>
+
+<%= render :partial => "video", :locals => {:content => "http://www.youtube.com/embed/_ovdm2yX4MA", :width => 600, :height => 400} %>
+
 
 <!--	
         	
