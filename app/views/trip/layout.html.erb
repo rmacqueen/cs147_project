@@ -1,8 +1,16 @@
 <section id="content" class="body">
+
+<% for content in @all_content %>
+
+	<%= render :partial => "image", :locals => {:content => content.value, :width => content.width, :height => content.height} %>
+
+<% end %>
+
+<!--	
         	
 <div class="cover"><%= image_tag "http://www.premiumcovers.net/covers/balloons-sunset-view-facebook-cover.jpg", :alt => "Balloon", :class => "cover_image" %> </div>
 
-<div class="left_block"> <iframe id="youtube" width="600" height="400" src="http://www.youtube.com/embed/SeoX8MZd81E" frameborder="0" allowfullscreen></iframe> </div>
+<iframe id="youtube" width="700" height="400" src="http://www.youtube.com/embed/SeoX8MZd81E" frameborder="0" allowfullscreen></iframe> 
 
 <div class="top_small"><p>There are other problems. The social stealth element of Assassin's Creed was stretched thin in Assassin's Creed: Revelations, but it's almost at its breaking point in Assassin's Creed 3. Being able to blend into crowds doesn't cut it anymore — it's too easy to get caught — and the addition of brush to blend into barely makes up the difference. This is especially problematic during mobile eavesdropping missions, where not keeping up or being spotted will result in automatic failure. But it also makes pulling off perfect assassinations exercises in trial and error.
 
@@ -14,6 +22,8 @@ These are small sections of Assassin's Creed 3 comparatively speaking, but they 
 
 
 
-<div class="baseline"><iframe id="soundcloud" scrolling="no" frameborder="no" src="http://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F7753324&show_artwork=true"></iframe></div>
+<iframe id="soundcloud" scrolling="no" frameborder="no" src="http://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F7753324&show_artwork=true"></iframe>
       
-</section><!-- /#content --> 
+      --> 
+
+</section> 

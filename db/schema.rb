@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121029223857) do
+ActiveRecord::Schema.define(:version => 20121102051735) do
+
+  create_table "contents", :force => true do |t|
+    t.integer "user_id"
+    t.date    "date_time"
+    t.integer "width"
+    t.integer "height"
+    t.string  "value"
+    t.string  "other"
+  end
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
@@ -24,10 +33,10 @@ ActiveRecord::Schema.define(:version => 20121029223857) do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "users", :force => true do |t|
-    t.string  "first_name"
-    t.string  "last_name"
-    t.string  "email"
-    t.string  "password"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.string "password"
   end
 
 end
