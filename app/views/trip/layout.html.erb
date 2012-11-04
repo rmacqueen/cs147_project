@@ -2,9 +2,14 @@
 
 <% for content in @all_content %>
 
-	<%= render :partial => "image", :locals => {:content => content.value, :width => content.width, :height => content.height, :alt => "hello world"} %>
+	<%= render :partial => "image", :locals => {:content => content.value, :width => content.width, :height => content.height, :alt => "hello world", :frame => "cover_image"} %>
+
 
 <% end %>
+
+<%= render :partial => "text", :locals => {:content => "<h2>sdf</h2>There are other problems. The social stealth element of Assassin's Creed was stretched thin in Assassin's Creed: Revelations, but it's almost at its breaking point in Assassin's Creed 3. Being able to blend into crowds doesn't cut it anymore — it's too easy to get caught — and the addition of brush to blend into barely makes up the difference. This is especially problematic during mobile eavesdropping missions, where not keeping up or being spotted will result in automatic failure. But it also makes pulling off perfect assassinations exercises in trial and error.There are other problems. The social stealth element of Assassin's Creed was stretched thin in Assassin's Creed: Revelations, but it's almost at its breaking point in Assassin's Creed 3. Being able to blend into crowds doesn't cut it anymore — it's too easy to get caught — and the addition of brush to blend into barely makes up the difference. This is especially problematic during mobile eavesdropping missions, where not keeping up or being spotted will result in automatic failure. But it also makes pulling off perfect assassinations exercises in trial and error.There are other probl
+
+These are small sections of Assassin's Creed 3 comparatively speaking, but they are a thumb in the eye of what might be the most ambitious Assassin's game. It's so disappointing because everything else is so good."} %>
 
 <%= render :partial => "video", :locals => {:content => "http://www.youtube.com/embed/_ovdm2yX4MA", :width => 600, :height => 400} %>
 
