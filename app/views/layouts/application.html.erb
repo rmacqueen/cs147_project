@@ -2,10 +2,11 @@
 <html>
 <head>
   <title>Trip Selektor</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
 
-  <%= javascript_include_tag "application" %>
-  <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js" %>
+  <%= stylesheet_link_tag "application", controller.controller_name %>
+
+  <%= javascript_include_tag "application", controller.controller_name %>
+
   <%= csrf_meta_tags %>
 </head>
 <body>
