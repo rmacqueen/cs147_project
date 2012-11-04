@@ -1,12 +1,8 @@
 /* Register and Returning -- Sign-up page and Login page */
-#content #register_container {
-    margin: 0 auto; 
-    position: relative;
-    top: 35px;
-    left: 0px;
-    height: 400px;
-    width: 800px;
-    z-index: 5;
+
+.welcome{
+	font-size:200%;
+	text-align:center;
 }
 
 #splash_img {
@@ -15,49 +11,15 @@
 }
 
 #content #splash {
-position: relative;
-float: left;
-width: 494px;
-height: 329px;
-margin-top: 50px;
-margin-left: 150px;
+
+	display:block;
+	margin-left: auto;
+    margin-right: auto;
+	width: 494px;
+	height: 329px;
+	margin-top: 50px;
 }
 
-#content #register-title {
-width: 350px;
-height: 50px;
-margin-bottom: 8px;
-}
-
-#content #register-title ul {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    width: 350px;
-    height: 50px;
-    position: relative;
-    display: block;
-    float: left;
-    list-style-type: none;
-    text-align: left; 
-}
-    
-#content #register-title ul li {
-    position: relative;
-    display: block;
-    float: left;
-    margin: 0;
-    padding: 0;
-    text-align: left; 
-}
-
-#content #register_fill_in {
-    width: 350px;
-}
-
-/*#content #register_fill_in #fname-field #fname:focus{
-    background-color:yellow;
-}*/
 
 form input {
     margin-bottom: 10px;
@@ -65,16 +27,11 @@ form input {
 
 /* Form */
 form {
-    width: 350px;
+	
+    width: 300px;
     height: 308px;
-    float: right;
-
-    margin-right: 150px;
-    margin-top: 50px;
 }
 
-form .important {
-    color: #00bfff; 
-    padding: 0 1px; 
-    text-decoration: underline; 
+.prompt{
+	font-size:200%;
 }

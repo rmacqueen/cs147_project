@@ -1,20 +1,31 @@
 <section id="content" class="body">
             <div id="register-container">
-                <div id="splash">
-                    <img border="0" src="/res/backpacking1.jpeg" alt="vidPic" width="494" height="329"/>
-                </div>
-
-                <% if flash[:notice] %>
+              <h2 class="welcome">Register (or <%= link_to "Sign In", :action => :login %>)</h2>
+              <% if flash[:notice] %>
                     <%= flash[:notice] %>
                 <% end %>
+                <div id="splash">
+                    <img border="0" src="/res/backpacking1.jpeg" alt="vidPic" width="494" height="329"/>
 
-                <%= form_for @user, :url => {:action => :post_register} do |f| %>
-  					First name: <%= f.text_field(:first_name) %><br />
-  					Last name: <%= f.text_field(:last_name) %><br />
-  					Email: <%= f.text_field(:email) %><br />
-  					Password: <%= f.password_field(:password) %><br />
+                    <%= form_for @user, :url => {:action => :post_register} do |f| %>
+                    <p><%= label_tag(:text_val, "First Name:", :class => "prompt") %> 
+                     <%= f.text_field(:first_name) %><br /></p>
 
- 					<%= submit_tag "Create Account" %>
+                    <p><%= label_tag(:text_val, "Last Name:", :class => "prompt") %> 
+                    <%= f.text_field(:last_name) %><br /></p>
+
+                    <p><%= label_tag(:text_val, "Email:", :class => "prompt") %> 
+                    <%= f.text_field(:email) %><br /></p>
+
+                    <p><%= label_tag(:text_val, "Password:", :class => "prompt") %> 
+                    <%= f.password_field(:password) %><br /></p>
+
+                    <%= submit_tag "Create Account" %>
+                </div>
+                
+                
+
+                
 <% end %>
             </div>
         </section><!-- /#content --> 
