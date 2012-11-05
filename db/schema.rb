@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(:version => 20121102051735) do
     t.date    "date_time"
     t.integer "width"
     t.integer "height"
+    t.string  "type"
     t.string  "value"
     t.string  "other"
   end

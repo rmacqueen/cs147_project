@@ -15,12 +15,27 @@
 	margin-bottom:10px;
 }
 
+img.image_wide{
+	overflow:hidden;
+	margin-top:-20%;
+	margin-bottom:-60%;
+}
+
+
+img.image_tall{
+	overflow:hidden;
+	margin-top:-20%;
+	margin-bottom:-60%;
+}
+
 .image{
 	width:100%;
-	height:700px;
+	height:600px;
 	overflow:hidden;
+	vertical-align:middle;
 
 	margin-top:10px;
+	margin-botton:10px;
 	background-color:white;
 	padding-top:10px;
 	padding-bottom:10px;
@@ -81,8 +96,9 @@ img{
 	float:left;
 }
 
-#youtube{
+.youtube{
 	width:100%;
+	height: 100%;
 	/*display:block;
 	margin-left: auto;
     margin-right: auto;
