@@ -2,7 +2,21 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.cover, .left_block{
+.cover{
+
+	width:100%;
+	height:600px;
+	overflow:hidden;
+	vertical-align:middle;
+
+	margin-top:10px;
+	margin-botton:10px;
+	background-color:white;
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-left:10px;
+	padding-right:10px;
+
 	border-style:solid;
 	border-width:2px;
 	border-color:green;
@@ -13,19 +27,6 @@
 	margin-right:10px;
 	margin-top: 10px;
 	margin-bottom:10px;
-}
-
-img.image_wide{
-	overflow:hidden;
-	margin-top:-20%;
-	margin-bottom:-60%;
-}
-
-
-img.image_tall{
-	overflow:hidden;
-	margin-top:-20%;
-	margin-bottom:-60%;
 }
 
 .image{
@@ -45,6 +46,34 @@ img.image_tall{
 
 img{
 	width:100%;
+}
+
+.side_left{
+	width:48%;
+	height:600px;
+	overflow:hidden;
+	font-size:250%;
+	float:left;
+
+	margin-top:10px;
+	background-color:white;
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-left:10px;
+	padding-right:10px;
+}
+
+.side_right{
+	height:600px;
+	width:48%;
+	float:right;
+
+	margin-top:10px;
+	background-color:white;
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-left:10px;
+	padding-right:10px;
 }
 
 .text{
@@ -75,11 +104,6 @@ img{
 	padding-left:10px;
 	padding-right:10px;
 	
-}
-
-.buffer{
-	height:50px;
-
 }
 
 .left_block{

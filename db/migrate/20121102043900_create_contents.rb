@@ -5,7 +5,7 @@ class CreateContents < ActiveRecord::Migration
   		t.column :date_time,	:date
   		t.column :width,	:integer
   		t.column :height,	:integer
-      t.column :type, :string
+      t.column :content_type, :string
   		t.column :value, :string
   		t.column :other, :string
   	end

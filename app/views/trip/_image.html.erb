@@ -1,7 +1,5 @@
-<div class="image">
-<% if :width > :height %>
-	<%= image_tag content, :alt => alt, :class => "image_wide" %> 
-<% else %>
-	<%= image_tag content, :alt => alt, :class => "image_tall" %> 
-<% end %>
+<div class=<%=frame%> >
+
+<%= image_tag content %> 
+
 </div>
