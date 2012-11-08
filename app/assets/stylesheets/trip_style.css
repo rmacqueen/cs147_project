@@ -1,0 +1,158 @@
+// Place all the styles related to the trip controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.cover{
+
+	width:100%;
+	height:600px;
+	overflow:hidden;
+	vertical-align:middle;
+
+	margin-top:10px;
+	margin-botton:10px;
+	background-color:white;
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-left:10px;
+	padding-right:10px;
+
+	border-style:solid;
+	border-width:2px;
+	border-color:green;
+}
+
+#content{
+	margin-left:10px;
+	margin-right:10px;
+	margin-top: 10px;
+	margin-bottom:10px;
+}
+
+.image{
+	width:100%;
+	height:600px;
+	overflow:hidden;
+	vertical-align:middle;
+
+	margin-top:10px;
+	margin-botton:10px;
+	background-color:white;
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-left:10px;
+	padding-right:10px;
+}
+
+img{
+	width:100%;
+}
+
+.side_left{
+	width:48%;
+	height:250px;
+	overflow:hidden;
+	font-size:250%;
+	float:left;
+
+	margin-top:10px;
+	background-color:white;
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-left:5px;
+	padding-right:5px;
+}
+
+.side_right{
+	height:250px;
+	width:45%;
+	float:right;
+
+	margin-top:10px;
+	background-color:white;
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-left:5px;
+	padding-right:5px;
+}
+
+.text{
+	width:45%;
+	height:250px;
+	overflow:scroll;
+	font-size:150%;
+	float:left;
+
+	margin-top:10px;
+	background-color:white;
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-left:10px;
+	padding-right:10px;
+}
+
+.video{
+
+	height:250px;
+	width:48%;
+	float:right;
+
+	margin-top:10px;
+	background-color:white;
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-left:10px;
+	padding-right:10px;
+	
+}
+
+.left_block{
+	background-color:green;
+	width:48%;
+	height:300px;
+	float:left;
+}
+
+.top_small{
+	background-color:red;
+	width:50%;
+	height:150px;	
+	float:left;
+}
+
+.youtube{
+	width:100%;
+	height: 100%;
+	/*display:block;
+	margin-left: auto;
+    margin-right: auto;
+
+    margin-bottom: auto;*/
+}
+
+.bottom_small{
+	background-color:yellow;
+	width:50%;
+	height:150px;
+	float:left;
+}
+
+.baseline{
+	width:100%;
+	height:150px;
+	clear:both
+}
+
+#soundcloud{
+	width:100%;
+ height:100%;
+}
+
+.cover_image{
+
+}
+
+.left_block #youtube{
+ width:100%;
+ height:100%;
+}

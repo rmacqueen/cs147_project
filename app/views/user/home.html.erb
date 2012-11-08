@@ -1,96 +1,85 @@
 
-<%= javascript_include_tag "slides.min.jquery" %>
+<!DOCTYPE html> 
+<html>
 
-<script>
+<head>
+	<title>VoteCaster | Submit</title> 
+	<meta charset="utf-8">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+ 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<%= stylesheet_link_tag "jquery.mobile-1.2.0" %>
+	<%= stylesheet_link_tag "style" %>
+	<%= stylesheet_link_tag "trip_style" %>
+    
 
-			$(function(){
-				console.log("hello");
-				console.log($('#slides'));
-				$('#slides').slides({
-					preload: true,
-					preloadImage: '/res/loading.gif',
-					play: 5000,
-					pause: 2500,
-					hoverPause: true,
-					animationStart: function(current){
-						console.log("here");
-						$('.caption').animate({
-							bottom:-35
-						},100);
-						if (window.console && console.log) {
-							// example return of current slide number
-							console.log('animationStart on slide: ', current);
-						};
-					},
-					animationComplete: function(current){
-						$('.caption').animate({
-							bottom:0
-						},200);
-						if (window.console && console.log) {
-							// example return of current slide number
-							console.log('animationComplete on slide: ', current);
-						};
-					},
-					slidesLoaded: function() {
-						$('.caption').animate({
-							bottom:0
-						},200);
-					}
-				});
+    <%= javascript_include_tag "jquery-1.8.2.min.js" %>
+    <%= javascript_include_tag "jquery.mobile-1.2.0.js" %>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+
+    <%= javascript_include_tag "slides.min.jquery.js" %>
+	
+	
+	
+	
+
+	
+
+</head> 
+<body> 
+
+<div data-role="page">
+
+	<div data-role="header">
+		<a href="settings.php" class="ui-btn-left">Settings</a>
+		<h1>Tripselektor</h1>
+		<a href="newtrip_setup.php" class="ui-btn-right">New Trip</a>
+	</div><!-- /header -->
+
+	<div data-role="content">
+
+	<%= params %>
+
+	<script>
+		$(function(){
+			console.log("hello")
+			$('#products').slides({
+				preload: true,
+				preloadImage: '/images/loading.gif',
+				effect: 'slide, fade',
+				crossfade: true,
+				slideSpeed: 350,
+				fadeSpeed: 500,
+				generateNextPrev: true,
+				generatePagination: false
 			});
-		</script>
-
-<section id="content" class="body">
-
-        	<!--<a id="add_button" href="#"><%= image_tag("/res/add.png", :alt => "backpack", :class => "add_button") %>Add new Trip</a>-->
-        	<%= link_to "Try the globe interface!", :action => :test %>
-
-            <div id="container">
-				<div id="example">
-					<div id="slides">
-						<div class="slides_container">
-						
-							<div class="slide">
-								<%= link_to image_tag("/res/slide-1.jpg", :width => "570", :height => "270", :alt => "Slide 1"), :controller => :trip, :action => :layout %>
-								%>
-								<div class="caption" style="bottom:0">
-									<p>Trip 1: San Jose, Costa Rica</p>
-								</div>
-							</div>
-							<div class="slide">
-								<%= link_to image_tag("/res/slide-2.jpg", :width => "570", :height => "270", :alt => "Slide 1"), :controller => :trip, :action => :layout %>
-								%>
-								<div class="caption">
-									<p>Trip 2: Eurotrip!</p>
-								</div>
-							</div>
-							<div class="slide">
-								<%= link_to image_tag("/res/slide-3.jpg", :width => "570", :height => "270", :alt => "Slide 1"), :controller => :trip, :action => :layout %>
-								%>
-								<div class="caption">
-									<p>Trip 3: Cabo San Lucas, México</p>
-								</div>
-							</div>
-							<div class="slide">
-								<%= link_to image_tag("/res/slide-4.jpg", :width => "570", :height => "270", :alt => "Slide 1"), :controller => :trip, :action => :layout %>
-								%>
-								<div class="caption">
-									<p>Trip 4: Chile, Peru, and Bolivia</p>
-								</div>
-							</div>
-							
-						</div>
-						<a href="#" class="prev"><img src="/res/arrow-prev.png" width="24" height="43" alt="Arrow Prev"></a>
-						<a href="#" class="next"><img src="/res/arrow-next.png" width="24" height="43" alt="Arrow Next"></a>
-					</div>
-				<img src="/res/example-frame.png" width="739" height="341" alt="Example Frame" id="frame">
+		});
+	</script>
+		<div id="container">
+		<div id="products_example">
+			<div id="products">
+				<div class="slides_container">
+					<a href="/trip/add"><%= image_tag "res/slide-1.jpg", :width=>366, :alt=>"sdf" %></a>
+					<a href="/trip/layout"><%= image_tag "1144953-1-2x.jpg", :width=>366, :alt=>"sdf" %></a>
+					<a href="/trip/layout"><%= image_tag "res/slide-2.jpg", :width=>366, :alt=>"sdf" %></a>					
+					<a href="/trip/layout"><%= image_tag "res/slide-3.jpg", :width=>366, :alt=>"sdf" %></a>
+					<a href="/trip/layout"><%= image_tag "res/slide-4.jpg", :width=>366, :alt=>"sdf" %></a>
+					<a href="/trip/layout"><%= image_tag "1144953-1-2x.jpg", :width=>366, :alt=>"sdf" %></a>
+					<a href="/trip/layout"><%= image_tag "1144953-1-2x.jpg", :width=>366, :alt=>"sdf" %></a>
+				</div>
+				<ul class="pagination">
+					<li><a href="#"><%= image_tag "res/slide-1.jpg", :width=>55, :alt=>"sdf" %></a></li>
+					<li><a href="#"><%= image_tag "1144953-1-2x.jpg", :width=>55, :alt=>"sdf" %></a></li>
+					<li><a href="#"><%= image_tag "res/slide-2.jpg", :width=>55, :alt=>"sdf" %></a></li>
+					<li><a href="#"><%= image_tag "res/slide-3.jpg", :width=>55, :alt=>"sdf" %></a></li>
+					<li><a href="#"><%= image_tag "res/slide-4.jpg", :width=>55, :alt=>"sdf" %></a></li>
+					<li><a href="#"><%= image_tag "1144953-1-2x.jpg", :width=>55, :alt=>"sdf" %></a></li>
+					<li><a href="#"><%= image_tag "1144953-1-2x.jpg", :width=>55, :alt=>"sdf" %></a></li>
+				</ul>
 			</div>
+		</div>
+	</div><!-- /content -->
+</div><!-- /page -->
 
-		
-
-        </section><!-- /#content --> 
-
-
-
-
-
+</body>
+</html>

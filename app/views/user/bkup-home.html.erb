@@ -1,0 +1,96 @@
+
+<%= javascript_include_tag "slides.min.jquery" %>
+
+<script>
+
+			$(function(){
+				console.log("hello");
+				console.log($('#slides'));
+				$('#slides').slides({
+					preload: true,
+					preloadImage: '/res/loading.gif',
+					play: 5000,
+					pause: 2500,
+					hoverPause: true,
+					animationStart: function(current){
+						console.log("here");
+						$('.caption').animate({
+							bottom:-35
+						},100);
+						if (window.console && console.log) {
+							// example return of current slide number
+							console.log('animationStart on slide: ', current);
+						};
+					},
+					animationComplete: function(current){
+						$('.caption').animate({
+							bottom:0
+						},200);
+						if (window.console && console.log) {
+							// example return of current slide number
+							console.log('animationComplete on slide: ', current);
+						};
+					},
+					slidesLoaded: function() {
+						$('.caption').animate({
+							bottom:0
+						},200);
+					}
+				});
+			});
+		</script>
+
+<section id="content" class="body">
+
+        	<!--<a id="add_button" href="#"><%= image_tag("/res/add.png", :alt => "backpack", :class => "add_button") %>Add new Trip</a>-->
+        	<%= link_to "Try the globe interface!", :action => :test %>
+
+            <div id="container">
+				<div id="example">
+					<div id="slides">
+						<div class="slides_container">
+						
+							<div class="slide">
+								<%= link_to image_tag("/res/slide-1.jpg", :width => "570", :height => "270", :alt => "Slide 1"), :controller => :trip, :action => :layout %>
+								%>
+								<div class="caption" style="bottom:0">
+									<p>Trip 1: San Jose, Costa Rica</p>
+								</div>
+							</div>
+							<div class="slide">
+								<%= link_to image_tag("/res/slide-2.jpg", :width => "570", :height => "270", :alt => "Slide 1"), :controller => :trip, :action => :layout %>
+								%>
+								<div class="caption">
+									<p>Trip 2: Eurotrip!</p>
+								</div>
+							</div>
+							<div class="slide">
+								<%= link_to image_tag("/res/slide-3.jpg", :width => "570", :height => "270", :alt => "Slide 1"), :controller => :trip, :action => :layout %>
+								%>
+								<div class="caption">
+									<p>Trip 3: Cabo San Lucas, México</p>
+								</div>
+							</div>
+							<div class="slide">
+								<%= link_to image_tag("/res/slide-4.jpg", :width => "570", :height => "270", :alt => "Slide 1"), :controller => :trip, :action => :layout %>
+								%>
+								<div class="caption">
+									<p>Trip 4: Chile, Peru, and Bolivia</p>
+								</div>
+							</div>
+							
+						</div>
+						<a href="#" class="prev"><img src="/res/arrow-prev.png" width="24" height="43" alt="Arrow Prev"></a>
+						<a href="#" class="next"><img src="/res/arrow-next.png" width="24" height="43" alt="Arrow Next"></a>
+					</div>
+				<img src="/res/example-frame.png" width="739" height="341" alt="Example Frame" id="frame">
+			</div>
+
+		
+
+        </section><!-- /#content --> 
+
+
+
+
+

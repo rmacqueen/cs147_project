@@ -1,42 +1,12 @@
-
-<!DOCTYPE html> 
-<html>
-
-<head>
-	<title>Scrapbook</title> 
-	<meta charset="utf-8">
-	<meta name="apple-mobile-web-app-capable" content="yes">
- 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<meta name="viewport" content="width=device-width, initial-scale=1"> 
-
-	<link rel="stylesheet" href="jquery.mobile-1.2.0.css" />
-	<link rel="stylesheet" href="style.css" />
-	<%= stylesheet_link_tag "trip_style" %>
-	
-	<script src="jquery-1.8.2.min.js"></script>
-	<script src="jquery.mobile-1.2.0.js"></script>
-
-</head> 
-<body> 
-
-<div data-role="page">
-
-	<div data-role="header">
-		<a href="/user/home/1" class="ui-btn-left">Back</a>
-		<h1>Scrapbook</h1>
-		<a href="#" class="ui-btn-right">Edit</a>
-
-	</div><!-- /header -->
-
-	<div data-role="content">
-		<% i = 0 %>
+<section id="content" class="body">
+<% i = 0 %>
 <% for content in @all_content %>
 	<% klass = "" %>
 	<% index = i % 3 %>
 	<% puts index %>
 	<% case index %>
 	<% when 0 %>
-		<h2> Day <%=i/3%> </h2>
+		<h2> Day 2 </h2>
 		<% klass = "cover" %>
 	<% when 1 %>
 		<% klass = "side_left" %>
@@ -53,10 +23,9 @@
 
 These are small sections of Assassin's Creed 3 comparatively speaking, but they are a thumb in the eye of what might be the most ambitious Assassin's game. It's so disappointing because everything else is so good."} %>
 
-<%= render :partial => "video", :locals => {:content => "http://www.youtube.com/embed/_ovdm2yX4MA", :width => 600, :height => 400} %>	
-		
-	</div><!-- /content -->
-</div><!-- /page -->
+<%= render :partial => "video", :locals => {:content => "http://www.youtube.com/embed/_ovdm2yX4MA", :width => 600, :height => 400} %>
 
-</body>
-</html>
+
+
+
+</section> 

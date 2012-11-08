@@ -27,13 +27,14 @@
 		<a href="#" class="ui-btn-right">Edit</a>
 
 	</div><!-- /header -->
-	<form action="/trip/post_add" method="post">  
+	<form action="form.php" method="post">  
 	<div data-role="content">
 		<div data-role="fieldcontain">
 			<!--<label for="textarea">Blog:</label>-->
-			<textarea cols="40" rows="20" name="textarea" id="textarea"></textarea>
+			<input type="file" accept="video/*" capture="camcorder">
+
 		</div>
-		<input type="submit" value="Submit Blog" />
+		<input type="submit" value="Submit Video" />
 
 	</form>
 
@@ -43,9 +44,9 @@
 	<div data-role="footer" data-id="samebar" class="nav-glyphish-example" data-position="fixed" data-tap-toggle="false">
 		<div data-role="navbar" class="nav-glyphish-example" data-grid="c">
 		<ul>
-			<li><a href="/trip/add" id="home" data-icon="custom" class="ui-btn-active">Text</a></li>
+			<li><a href="/trip/add" id="home" data-icon="custom" >Text</a></li>
 			<li><a href="/trip/add_image" id="key" data-icon="custom">Photo</a></li>
-			<li><a href="/trip/add_video" id="beer" data-icon="custom" >Video</a></li>
+			<li><a href="/trip/add_video" id="beer" data-icon="custom" class="ui-btn-active">Video</a></li>
 			<li><a href="/trip/add_audio" id="skull" data-icon="custom">Audio</a></li>
 
 		</ul>

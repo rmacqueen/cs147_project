@@ -10,9 +10,10 @@ class SplashController < ApplicationController
 	end
 
 	def post_login
-		email = params[:text_val]
+		email = params[:username]
 		password = params[:password]
 		user = User.find_by_email(email)
+		puts "in post login"
 		if user == nil
 			flash[:notice] = "No user exists with that username - please try again"
 			redirect_to :action => :login
