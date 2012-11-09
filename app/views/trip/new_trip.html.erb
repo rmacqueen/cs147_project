@@ -1,0 +1,41 @@
+
+<!DOCTYPE html> 
+<html>
+
+<head>
+	<title>Tripselektor</title> 
+	<meta charset="utf-8">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+ 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<%= stylesheet_link_tag "jquery.mobile-1.2.0" %>
+	<%= stylesheet_link_tag "style" %>
+	<%= stylesheet_link_tag "trip_style" %>
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+    <%= javascript_include_tag "jquery-1.8.2.min.js" %>
+    <%= javascript_include_tag "jquery.mobile-1.2.0.js" %>
+
+    
+
+    <%= javascript_include_tag "slides.min.jquery.js" %>
+	
+
+</head> 
+<body> 
+
+<div data-role="page">
+
+	<div data-role="header">
+		<a href="/user/home" class="ui-btn-left">Back</a>
+		<h1>Tripselektor</h1>
+		<a href="/trip/add" class="ui-btn-right">Edit</a>
+	</div><!-- /header -->
+
+	<div data-role="content">
+
+		<h3>Hit edit to add something new</h3>
+	</div><!-- /page -->
+
+</body>
+</html>

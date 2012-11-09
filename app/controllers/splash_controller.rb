@@ -10,7 +10,7 @@ class SplashController < ApplicationController
 	end
 
 	def post_login
-		email = params[:username]
+		email = params[:email]
 		password = params[:password]
 		user = User.find_by_email(email)
 		puts "in post login"
@@ -38,16 +38,22 @@ class SplashController < ApplicationController
 	end
 
 	def post_register
-		@user = User.new(params[:user])
+		puts params
+		@user = User.new()
+		@user.first_name = params[:first_name]
+		@user.last_name = params[:last_name]
+		@user.email = params[:email]
+		@user.password = params[:password]
+
 		if @user.valid?
 			puts "right here"
 			@user.save
 			flash[:notice] = "Thanks #{@user.first_name}! Your account was successfully created!! Please login below:"
-			redirect_to :action => :login	
+			redirect_to "/user/home"	
 		else
 			puts "ERRROORR"
 			flash[:notice] = @user.errors.full_messages
-			redirect_to :action => :register
+			redirect_to "/splash/register"
 		end
 		
 	end

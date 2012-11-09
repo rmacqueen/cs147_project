@@ -1,31 +1,73 @@
-<section id="content" class="body">
-            <div id="register-container">
-              <h2 class="welcome">Register (or <%= link_to "Sign In", :action => :login %>)</h2>
-              <% if flash[:notice] %>
-                    <%= flash[:notice] %>
-                <% end %>
-                <div id="splash">
-                    <img border="0" src="/res/backpacking1.jpeg" alt="vidPic" width="494" height="329"/>
 
-                    <%= form_for @user, :url => {:action => :post_register} do |f| %>
-                    <p><%= label_tag(:text_val, "First Name:", :class => "prompt") %> 
-                     <%= f.text_field(:first_name) %><br /></p>
 
-                    <p><%= label_tag(:text_val, "Last Name:", :class => "prompt") %> 
-                    <%= f.text_field(:last_name) %><br /></p>
+<!DOCTYPE html> 
+<html>
 
-                    <p><%= label_tag(:text_val, "Email:", :class => "prompt") %> 
-                    <%= f.text_field(:email) %><br /></p>
+<head>
+    <title>TripSelektor | Login</title> 
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
 
-                    <p><%= label_tag(:text_val, "Password:", :class => "prompt") %> 
-                    <%= f.password_field(:password) %><br /></p>
+    <%= stylesheet_link_tag "style" %>
+    <%= stylesheet_link_tag "trip_style" %>
+    <%= stylesheet_link_tag "jquery.mobile-1.2.0" %>
 
-                    <%= submit_tag "Create Account" %>
-                </div>
-                
-                
+    <%= javascript_include_tag "jquery-1.8.2.min.js" %>
+    <%= javascript_include_tag "jquery.mobile-1.2.0.js" %>
 
-                
-<% end %>
-            </div>
-        </section><!-- /#content --> 
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+
+    <%= javascript_include_tag "slides.min.jquery.js" %>
+
+    <link rel="apple-touch-icon" href="/assets/splash.jpg" />
+    <link rel="apple-touch-startup-image" href="/assets/splash.jpg" />
+
+
+</head>  
+<body> 
+
+<div data-role="page">
+
+    <div data-role="header">
+    <h1>Tripselektor</h1>
+    <a href="/splash/login" class="ui-btn-right">Login</a>
+
+    </div><!-- /header -->
+
+    <div data-role="content">
+        <%=image_tag "vintage_city.jpeg", :height=>"60" %>
+    
+    <form id="form" action="/splash/post_register" method="post">
+        <div data-role="fieldcontain">
+        <label for="foo">First Name:</label>
+         <input type="text" name="first_name" id="foo" value="" autocapitalize="off" />
+        </div>
+
+        <div data-role="fieldcontain">
+         <label for="foo">Last Name:</label>
+         <input type="text" name="last_name" id="foo" value="" autocapitalize="off" />
+        </div>
+
+        <div data-role="fieldcontain">
+         <label for="foo">Email:</label>
+         <input type="text" name="email" id="foo" value="" autocapitalize="off" />
+        </div>
+
+        <div data-role="fieldcontain">
+         <label for="foo">Password:</label>
+         <input type="password" name="password" id="foo" value=""  />
+        </div>
+        
+        <button type="submit" data-theme="b" name="submit" value="submit-value">Submit</button>
+    </form>
+        
+    <div id="info">
+
+    </div>  
+    </div><!-- /content -->
+</div><!-- /page -->
+
+</body>
+</html>

@@ -32,15 +32,19 @@
 
     <div data-role="header">
     <h1>Tripselektor</h1>
+    <a href="/splash/register" class="ui-btn-right">Sign up</a>
 
     </div><!-- /header -->
 
     <div data-role="content">
+        <%=image_tag "vintage_city.jpeg", :height=>"60" %>
     
     <form id="form" action="/splash/post_login" method="post">
         <div data-role="fieldcontain">
-         <label for="foo">Username:</label>
-         <input type="text" name="username" id="foo" value="" autocapitalize="off" />
+     
+        <div data-role="fieldcontain">
+         <label for="foo">Email:</label>
+         <input type="text" name="email" id="foo" value="" autocapitalize="off" />
         </div>
         <div data-role="fieldcontain">
          <label for="foo">Password:</label>
@@ -51,7 +55,7 @@
     </form>
         
     <div id="info">
-        <p>Thank you for logging. You should be able to see all sorts of user information here.</p>
+
     </div>  
     </div><!-- /content -->
 </div><!-- /page -->
