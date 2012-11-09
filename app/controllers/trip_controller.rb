@@ -3,6 +3,10 @@ class TripController < ApplicationController
 
 	end
 
+	def new_trip
+		@result = params[:blog]
+	end
+
 	def add
 		puts "in trip add"
 		puts session["user"]
@@ -38,20 +42,20 @@ class TripController < ApplicationController
 	def post_add
 
 		puts "In post_add"
-		puts session
 		puts session["user"]
-		puts params[:textarea]
 		if params[:textarea] != nil
 			puts "saving blog post"
 			blog = params[:textarea]
 			Content.save_content("text", blog, 1, "")
 			flash[:notice] = "Content successfully uploaded!: " + blog
+			redirect_to :controller => "trip", :action => "new_trip", :params => {:blog => blog}
 			
 		else
-			flash[:notice] = "No text or no user!"
+			flash[:notice] = "Please enter text"
+			redirect_to "/trip/add"
 		end
 		
-		redirect_to "/trip/add"
+		
 
 	end
 
@@ -65,21 +69,9 @@ class TripController < ApplicationController
 		puts "current user logged in is " + session["user"].to_s
 
 		@user = User.find_by_id(session["user"])
-		puts @user
 		@all_content = @user.contents
 
 		@all_content = Content.find(:all)
-		puts "starting to iterate over all content"
-		for content in @all_content
-
-			puts "printing content width"
-			puts content.width
-
-			puts "printing content type"
-			puts content.content_type
-
-		end	
-		puts @all_content
 
 
 	end
