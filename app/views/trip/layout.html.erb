@@ -28,7 +28,7 @@
 
 	</div><!-- /header -->
 
-	<div data-role="content">
+	<div data-role="content" id="page_test">
 		<% i = 0 %>
 <% for content in @all_content %>
 	<% klass = "" %>
@@ -47,7 +47,7 @@
 	<% end %>
 
 	<% if content.content_type == "image" %>
-		<%= render :partial => "image", :locals => {:content => content.value, :frame => klass} %>
+		<%= render :partial => "image", :locals => {:content => content.value, :frame => klass, :width => content.width, :height => content.height} %>
 	<% end %>
 
 

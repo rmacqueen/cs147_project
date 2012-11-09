@@ -1,5 +1,15 @@
 <div class=<%=frame%> >
+<div class="image_test">
 
-<%= image_tag content %> 
+<% if width > height %>
 
+	<%= image_tag content, :class => "landscape" %> 
+
+<% else %>
+
+	<%= image_tag content, :class => "portrait" %> 
+
+<% end %>
+
+</div>
 </div>
