@@ -11,17 +11,13 @@ class TripController < ApplicationController
 
 	def post_add_image
 		puts "In post_add_image"
-		puts session
+		puts session["user"] = 1 #hard coded
 		puts session["user"]
-		puts "\n\n\nparams is"
-		puts params
-		puts "\n\n\n\n\n"
-		puts "photo is"
-		puts params[:content]
+		user = User.find(session["user"])
 		if params[:content] != nil
 			puts "saving photo"
 			photo_object = params[:content][:photo]
-			photo_name = photo_object.original_filename
+			photo_name = photo_object.original_filename + user.contents.length.to_s
 			puts "name is: "
 			puts photo_name
 			directory = "app/assets/images/"

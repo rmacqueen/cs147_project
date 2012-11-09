@@ -30,20 +30,16 @@
 	</div><!-- /header -->
 	  
 	<div data-role="content">
-		<form id="upload_form" action="/trip/post_add_image" method="post" data-ajax="false">
 		<div data-role="fieldcontain">
-
-			<input name="photo" type="file">
-
 
 		</div>
 
-	</form> 
+
 
 	<%= form_for :content, :html=>{:multipart=>true, "data-ajax" => "false"}, :url => {:action => :post_add_image} do |form| %>
-	File Upload: <%= form.file_field :photo, :accepts=>"image/*" %>
-	<%= submit_tag "Upload" %>
-<% end %>
+		File Upload: <%= form.file_field :photo, :accepts=>"image/*" %>
+		<%= submit_tag "Upload" %>
+	<% end %>
 
 	
 
