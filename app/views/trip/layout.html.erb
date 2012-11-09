@@ -9,12 +9,12 @@
  	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 
-	<link rel="stylesheet" href="jquery.mobile-1.2.0.css" />
-	<link rel="stylesheet" href="style.css" />
+	<%= stylesheet_link_tag "jquery.mobile-1.2.0" %>
+	<%= stylesheet_link_tag "style" %>
 	<%= stylesheet_link_tag "trip_style" %>
 	
-	<script src="jquery-1.8.2.min.js"></script>
-	<script src="jquery.mobile-1.2.0.js"></script>
+	<%= javascript_include_tag "jquery-1.8.2.min.js" %>
+    <%= javascript_include_tag "jquery.mobile-1.2.0.js" %>
 
 </head> 
 <body> 
@@ -36,22 +36,37 @@
 	<% puts index %>
 	<% case index %>
 	<% when 0 %>
-		<h2> Day <%=i/3%> </h2>
+		<h2 class="days"> Day <%=(i/3) + 1%> </h2>
 		<% klass = "cover" %>
 	<% when 1 %>
+		<div class="wrapper">
 		<% klass = "side_left" %>
 	<% when 2 %>
 		<% klass = "side_right" %>
+
 	<% end %>
 
-	<%= render :partial => "image", :locals => {:content => content.value, :frame => klass} %>
+	<% if content.content_type == "image" %>
+		<%= render :partial => "image", :locals => {:content => content.value, :frame => klass} %>
+	<% end %>
+
+
+	<% if content.content_type == "text" %>
+
+		<%= render :partial => "text", :locals => {:content => content.value, :frame => klass} %>
+
+	<% end %>
+
+	<% if index == 2 %>
+		</div>
+	<%end%>
 
 	<% i+=1 %>
 <% end %>
 
 <%= render :partial => "text", :locals => {:content => "<h2>sdf</h2>There are other problems. The social stealth element of Assassin's Creed was stretched thin in Assassin's Creed: Revelations, but it's almost at its breaking point in Assassin's Creed 3. Being able to blend into crowds doesn't cut it anymore — it's too easy to get caught — and the addition of brush to blend into barely makes up the difference. This is especially problematic during mobile eavesdropping missions, where not keeping up or being spotted will result in automatic failure. But it also makes pulling off perfect assassinations exercises in trial and error.There are other problems. The social stealth element of Assassin's Creed was stretched thin in Assassin's Creed: Revelations, but it's almost at its breaking point in Assassin's Creed 3. Being able to blend into crowds doesn't cut it anymore — it's too easy to get caught — and the addition of brush to blend into barely makes up the difference. This is especially problematic during mobile eavesdropping missions, where not keeping up or being spotted will result in automatic failure. But it also makes pulling off perfect assassinations exercises in trial and error.There are other probl
 
-These are small sections of Assassin's Creed 3 comparatively speaking, but they are a thumb in the eye of what might be the most ambitious Assassin's game. It's so disappointing because everything else is so good."} %>
+These are small sections of Assassin's Creed 3 comparatively speaking, but they are a thumb in the eye of what might be the most ambitious Assassin's game. It's so disappointing because everything else is so good.", :frame => "side_left"} %>
 
 <%= render :partial => "video", :locals => {:content => "http://www.youtube.com/embed/_ovdm2yX4MA", :width => 600, :height => 400} %>	
 		

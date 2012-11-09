@@ -2,15 +2,20 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.wrapper{
+	position: relative;
+}
+
 .cover{
 
 	width:100%;
-	height:600px;
+	height:500px;
 	overflow:hidden;
-	vertical-align:middle;
+	/*vertical-align:middle;*/
+	position: relative;
 
 	margin-top:10px;
-	margin-botton:10px;
+	margin-bottom:10px;
 	background-color:white;
 	padding-top:10px;
 	padding-bottom:10px;
@@ -50,7 +55,7 @@ img{
 
 .side_left{
 	width:48%;
-	height:250px;
+	height:350px;
 	overflow:hidden;
 	font-size:250%;
 	float:left;
@@ -64,7 +69,7 @@ img{
 }
 
 .side_right{
-	height:250px;
+	height:350px;
 	width:45%;
 	float:right;
 
@@ -155,4 +160,9 @@ img{
 .left_block #youtube{
  width:100%;
  height:100%;
+}
+
+.days{
+	float:left;
+	font-size: 200%
 }

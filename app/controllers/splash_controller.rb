@@ -21,7 +21,9 @@ class SplashController < ApplicationController
 			puts user.first_name
 			puts user.password
 			if user.password_valid?(password)
+				puts "password OK"
 				session["user"] = user.id
+				puts session["user"]
 				redirect_to(:controller => :user, :action => :home, :id => user.id)
 			else
 				flash[:notice] = "Sorry, that username password combination is incorrect - please try again"
