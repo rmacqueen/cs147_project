@@ -16,6 +16,7 @@
 	<%= javascript_include_tag "jquery-1.8.2.min.js" %>
     <%= javascript_include_tag "jquery.mobile-1.2.0.js" %>
 
+
 </head> 
 <body> 
 
@@ -27,16 +28,25 @@
 		<a href="#" class="ui-btn-right">Edit</a>
 
 	</div><!-- /header -->
-	<form action="form.php" method="post">  
+	  
 	<div data-role="content">
+		<form id="upload_form" action="/trip/post_add_image" method="post" data-ajax="false">
 		<div data-role="fieldcontain">
-			<!--<label for="textarea">Blog:</label>-->
-			<input type="file" accept="image/*" capture="camera">
+
+			<input name="photo" type="file">
+
 
 		</div>
-		<input type="submit" value="Submit Image" />
 
-	</form>
+	</form> 
+
+	<%= form_for :content, :html=>{:multipart=>true, "data-ajax" => "false"}, :url => {:action => :post_add_image} do |form| %>
+	File Upload: <%= form.file_field :photo, :accepts=>"image/*" %>
+	<%= submit_tag "Upload" %>
+<% end %>
+
+	
+
 
 			
 	</div><!-- /content -->

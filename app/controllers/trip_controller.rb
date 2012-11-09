@@ -9,6 +9,36 @@ class TripController < ApplicationController
 
 	end
 
+	def post_add_image
+		puts "In post_add_image"
+		puts session
+		puts session["user"]
+		puts "\n\n\nparams is"
+		puts params
+		puts "\n\n\n\n\n"
+		puts "photo is"
+		puts params[:content]
+		if params[:content] != nil
+			puts "saving photo"
+			photo_object = params[:content][:photo]
+			photo_name = photo_object.original_filename
+			puts "name is: "
+			puts photo_name
+			directory = "app/assets/images/"
+			path = File.join(directory, photo_name)
+			File.open(path, "wb") { |f| f.write(photo_object.read) }
+			Content.save_content("image", photo_name, 1, "")
+
+			flash[:notice] = "Photo successfully uploaded!"
+			
+		else
+			flash[:notice] = "No text or no user!"
+		end
+		
+		redirect_to "/trip/add_image"
+
+	end
+
 	def post_add
 
 		# if params[:photo] != nil
