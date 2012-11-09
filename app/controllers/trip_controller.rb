@@ -37,19 +37,6 @@ class TripController < ApplicationController
 
 	def post_add
 
-		# if params[:photo] != nil
-		# 	photo_object = params[:photo]
-		# 	puts photo_object
-		# 	photo_name = photo_object.original_filename
-		# 	directory = "app/assets/images/"
-		# 	path = File.join(directory, photo_name)
-		# 	File.open(path, "wb") { |f| f.write(photo_object.read) }
-		# 	Content.save_photo("image", photo_name, session["user"], "")
-
-		# 	flash[:notice] = "Photo successfully uploaded!"
-		# else
-		# 	flash[:notice] = "No file selected."
-		# end
 		puts "In post_add"
 		puts session
 		puts session["user"]
