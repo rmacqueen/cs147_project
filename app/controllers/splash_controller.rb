@@ -15,7 +15,7 @@ class SplashController < ApplicationController
 		user = User.find_by_email(email)
 		puts "in post login"
 		if user == nil
-			flash[:notice] = "No user exists with that username - please try again"
+			flash[:notice] = "Invalid username - please try again or sign up for an account"
 			redirect_to :action => :login
 		else
 			puts user.first_name
