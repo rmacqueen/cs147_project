@@ -28,7 +28,7 @@
 
 	</div><!-- /header -->
 
-	<div data-role="content" id="page_test">
+	<div data-role="content" id="page_test" onclick="hideEditFooter()">
 		<% i = 0 %>
 <% for content in @all_content %>
 	<% if content.content_type == "milestone" %>
@@ -69,7 +69,14 @@
 	<% i+=1 %>
 <% end %>
 
+<div class="placeholder" onclick="showEditFooter()">
+	<h3>Tap to add more</h3>
+</div>
+
+</div><!-- /content -->
+
 <script>
+
 function getImageFile(){
 	console.log("Getting an image")
    document.getElementById("upfile_image").click();
@@ -88,12 +95,30 @@ function getVideoFile(){
     document.myForm.submit();
     event.preventDefault();
   }
-</script>
-		
-	</div><!-- /content -->
 
-
+	var bypass = false;
 	
+	function showEditFooter() {
+	
+	  footer = document.getElementById("footer");
+	  if (footer.style.visibility == "hidden" || footer.style.visibility == "") {
+		  footer.style.visibility = "visible";
+		  bypass = true;
+	  } 
+	}
+	
+	function hideEditFooter() {
+	 
+	  footer = document.getElementById("footer");
+	  if (footer.style.visibility == "visible" && bypass == false) {
+		  footer.style.visibility = "hidden";
+	  }
+	  bypass = false;
+	}
+ 
+</script>
+
+	<div id="footer">
 
 	<div data-role="footer" data-id="samebar" class="nav-glyphish-example" data-position="fixed" data-tap-toggle="false">
 		<div data-role="navbar" class="nav-glyphish-example" data-grid="c">
@@ -125,6 +150,9 @@ function getVideoFile(){
 		<% end %>
 		</div>
 	</div>
+
+</div>
+	
 
 </div><!-- /page -->
 
