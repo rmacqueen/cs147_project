@@ -3,7 +3,7 @@
 <html>
 
 <head>
-	<title>Scrapbook</title> 
+	<title><%= @trip.name %></title> 
 	<meta charset="utf-8">
 	<meta name="apple-mobile-web-app-capable" content="yes">
  	<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -23,7 +23,7 @@
 
 	<div data-role="header">
 		<a href="/user/home/1" class="ui-btn-left">Back</a>
-		<h1>Scrapbook</h1>
+		<h1><%= @trip.name %></h1>
 
 
 	</div><!-- /header -->
@@ -31,12 +31,17 @@
 	<div data-role="content" id="page_test">
 		<% i = 0 %>
 <% for content in @all_content %>
+	<% if content.content_type == "milestone" %>
+		<h2 class="days"><%= content.value %> </h2>
+		<% i = 0 %>
+		<% next %> 
+	<% end %>
+
 	<% klass = "" %>
 	<% index = i % 3 %>
 	<% puts index %>
 	<% case index %>
 	<% when 0 %>
-		<h2 class="days"> Day <%=(i/3) + 1%> </h2>
 		<% klass = "cover" %>
 	<% when 1 %>
 		<div class="wrapper">
@@ -64,13 +69,63 @@
 	<% i+=1 %>
 <% end %>
 
-<%= render :partial => "text", :locals => {:content => "<h2>sdf</h2>There are other problems. The social stealth element of Assassin's Creed was stretched thin in Assassin's Creed: Revelations, but it's almost at its breaking point in Assassin's Creed 3. Being able to blend into crowds doesn't cut it anymore — it's too easy to get caught — and the addition of brush to blend into barely makes up the difference. This is especially problematic during mobile eavesdropping missions, where not keeping up or being spotted will result in automatic failure. But it also makes pulling off perfect assassinations exercises in trial and error.There are other problems. The social stealth element of Assassin's Creed was stretched thin in Assassin's Creed: Revelations, but it's almost at its breaking point in Assassin's Creed 3. Being able to blend into crowds doesn't cut it anymore — it's too easy to get caught — and the addition of brush to blend into barely makes up the difference. This is especially problematic during mobile eavesdropping missions, where not keeping up or being spotted will result in automatic failure. But it also makes pulling off perfect assassinations exercises in trial and error.There are other probl
+<script>
+function getImageFile(){
+	console.log("Getting an image")
+   document.getElementById("upfile_image").click();
+ }
 
-These are small sections of Assassin's Creed 3 comparatively speaking, but they are a thumb in the eye of what might be the most ambitious Assassin's game. It's so disappointing because everything else is so good.", :frame => "side_left"} %>
+function getVideoFile(){
+	console.log("Getting a video")
+   document.getElementById("upfile_video").click();
+ }
 
-<%= render :partial => "video", :locals => {:content => "http://www.youtube.com/embed/_ovdm2yX4MA", :width => 600, :height => 400} %>	
+ function sub(obj){
+    var file = obj.value;
+    var fileName = file.split("\\");
+    console.log(file);
+    //document.getElementById("yourBtn").innerHTML = fileName[fileName.length-1];
+    document.myForm.submit();
+    event.preventDefault();
+  }
+</script>
 		
 	</div><!-- /content -->
+
+
+	
+
+	<div data-role="footer" data-id="samebar" class="nav-glyphish-example" data-position="fixed" data-tap-toggle="false">
+		<div data-role="navbar" class="nav-glyphish-example" data-grid="c">
+			<%= form_for :content, :html=>{:name=>"myForm", :multipart=>true, "data-ajax" => "false"}, :url => {:action => :post_add} do |form| %>
+
+		<ul>
+
+			<li><a href="#" id="home" data-icon="custom"  onclick="getImageFile()">Photo</a>
+				<div style='height: 0px;width: 0px; overflow:hidden;'>
+
+					<input type="number" name="trip_id" value=<%=@trip.id%>>
+
+				</div>
+				<div style='height: 0px;width: 0px; overflow:hidden;'>
+
+					<%= form.file_field :photo, :accepts=>"image/*", :id=>"upfile_image", :onchange=>"sub(this)" %>
+
+					<!--<input id="upfile_image" type="file" value="upload" accept="image/*" capture="camera" onchange="sub(this)"/>-->
+
+				</div>
+			</li>
+			<li><a href="#" id="key" data-icon="custom" onclick="getVideoFile()">Video</a>
+				<div style='height: 0px;width: 0px; overflow:hidden;'><input id="upfile_video" type="file" value="upload" accept="video/*" capture="camcorder" onchange="sub(this)"/></div>
+			</li>
+			<li><a href="#" id="beer" data-icon="custom" >Text</a></li>
+			<li><a href="#" id="skull" data-icon="custom">More</a></li>
+
+		</ul>
+		<% end %>
+		</div>
+	</div>
+
 </div><!-- /page -->
 
 </body>

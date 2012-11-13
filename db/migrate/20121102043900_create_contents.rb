@@ -1,7 +1,7 @@
 class CreateContents < ActiveRecord::Migration
    def up
   	create_table :contents do |t|
-  		t.column :user_id,	:integer
+  		t.column :trip_id,	:integer
   		t.column :date_time,	:date
   		t.column :width,	:integer
   		t.column :height,	:integer

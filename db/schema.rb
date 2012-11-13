@@ -11,10 +11,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121102051735) do
+ActiveRecord::Schema.define(:version => 20121112052935) do
 
   create_table "contents", :force => true do |t|
-    t.integer "user_id"
+    t.integer "trip_id"
     t.date    "date_time"
     t.integer "width"
     t.integer "height"
@@ -32,6 +32,12 @@ ActiveRecord::Schema.define(:version => 20121102051735) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "trips", :force => true do |t|
+    t.integer "user_id"
+    t.string  "name"
+    t.string  "cover_photo"
+  end
 
   create_table "users", :force => true do |t|
     t.string "first_name"

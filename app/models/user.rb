@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_many :contents
+  has_many :trips
   # attr_accessible :title, :body
   attr_accessible :first_name, :last_name, :email, :password
 

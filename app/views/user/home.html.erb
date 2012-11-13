@@ -53,17 +53,16 @@
 		<div id="products_example">
 			<div id="products">
 				<div class="slides_container">
-					<a href="/trip/layout"><%= image_tag "slide_1.jpg", :width=>366, :alt=>"sdf" %></a>
-					<a href="/trip/layout"><%= image_tag "slide_2.jpg", :width=>366, :alt=>"sdf" %></a>
-					<a href="/trip/layout"><%= image_tag "slide_3.jpg", :width=>366, :alt=>"sdf" %></a>					
-					<a href="/trip/layout"><%= image_tag "slide_4.jpg", :width=>366, :alt=>"sdf" %></a>
+					<% for trip in @trips %>
+					<% link = "/trip/layout/" + trip.id.to_s %>
+					<a href=<%=link%>><%= image_tag trip.cover_photo, :width=>366, :alt=>"sdf" %></a>
+					<% end %>
 
 				</div>
 				<ul class="pagination">
-					<li><a href="#"><%= image_tag "slide_1.jpg", :width=>55, :alt=>"sdf" %></a></li>
-					<li><a href="#"><%= image_tag "slide_2.jpg", :width=>55, :alt=>"sdf" %></a></li>
-					<li><a href="#"><%= image_tag "slide_3.jpg", :width=>55, :alt=>"sdf" %></a></li>
-					<li><a href="#"><%= image_tag "slide_4.jpg", :width=>55, :alt=>"sdf" %></a></li>
+					<% for trip in @trips %>
+					<li><a href="#"><%= image_tag trip.cover_photo, :width=>55, :alt=>"sdf" %></a></li>
+					<% end %>
 				</ul>
 			</div>
 		</div>
