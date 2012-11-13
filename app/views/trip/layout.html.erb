@@ -28,7 +28,7 @@
 
 	</div><!-- /header -->
 
-	<div data-role="content" id="page_test">
+	<div data-role="content" id="page_test" onclick="hideEditFooter()">
 		<% i = 0 %>
 <% for content in @all_content %>
 	<% klass = "" %>
@@ -64,6 +64,34 @@
 	<% i+=1 %>
 <% end %>
 
+<script>
+
+	var bypass = false;
+	
+	function showEditFooter() {
+	
+	  footer = document.getElementById("footer");
+	  if (footer.style.visibility == "hidden" || footer.style.visibility == "") {
+		  footer.style.visibility = "visible";
+		  bypass = true;
+	  } 
+	}
+	
+	function hideEditFooter() {
+	 
+	  footer = document.getElementById("footer");
+	  if (footer.style.visibility == "visible" && bypass == false) {
+		  footer.style.visibility = "hidden";
+	  }
+	  bypass = false;
+	}
+ 
+</script>
+
+<div class="placeholder" onclick="showEditFooter()">
+	<h3>Tap to add more</h3>
+</div>
+
 <%= render :partial => "text", :locals => {:content => "<h2>sdf</h2>There are other problems. The social stealth element of Assassin's Creed was stretched thin in Assassin's Creed: Revelations, but it's almost at its breaking point in Assassin's Creed 3. Being able to blend into crowds doesn't cut it anymore — it's too easy to get caught — and the addition of brush to blend into barely makes up the difference. This is especially problematic during mobile eavesdropping missions, where not keeping up or being spotted will result in automatic failure. But it also makes pulling off perfect assassinations exercises in trial and error.There are other problems. The social stealth element of Assassin's Creed was stretched thin in Assassin's Creed: Revelations, but it's almost at its breaking point in Assassin's Creed 3. Being able to blend into crowds doesn't cut it anymore — it's too easy to get caught — and the addition of brush to blend into barely makes up the difference. This is especially problematic during mobile eavesdropping missions, where not keeping up or being spotted will result in automatic failure. But it also makes pulling off perfect assassinations exercises in trial and error.There are other probl
 
 These are small sections of Assassin's Creed 3 comparatively speaking, but they are a thumb in the eye of what might be the most ambitious Assassin's game. It's so disappointing because everything else is so good.", :frame => "side_left"} %>
@@ -71,6 +99,19 @@ These are small sections of Assassin's Creed 3 comparatively speaking, but they 
 <%= render :partial => "video", :locals => {:content => "http://www.youtube.com/embed/_ovdm2yX4MA", :width => 600, :height => 400} %>	
 		
 	</div><!-- /content -->
+	<div id="footer">
+	<div data-role="footer" data-id="samebar" class="nav-glyphish-example" data-position="fixed" data-tap-toggle="false">
+		<div data-role="navbar" class="nav-glyphish-example" data-grid="c">
+		<ul>
+			<li><a href="/trip/add" id="home" data-icon="custom" class="ui-btn-active">Text</a></li>
+			<li><a href="/trip/add_image" id="key" data-icon="custom">Photo</a></li>
+			<li><a href="/trip/add_video" id="beer" data-icon="custom" >Video</a></li>
+			<li><a href="/trip/add_audio" id="skull" data-icon="custom">Audio</a></li>
+
+		</ul>
+		</div>
+	</div>
+	</div>
 </div><!-- /page -->
 
 </body>
