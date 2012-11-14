@@ -19,25 +19,49 @@ class TripController < ApplicationController
 
 	end
 
+	 def show
+	 	puts "videos"
+	    videos = Content.find_all_by_content_type("video")
+	    video = videos[0]
+		@original_video = video.panda_video
+	    @h264_encoding = @original_video.encodings["h264"]
+	    
+	    
+ 	 end
+
 	def post_add
+
 		puts "In post_add"
 		puts session["user"]
 		user = User.find(session["user"])
 		puts params
 		trip = Trip.find(params[:trip_id])
-		content_type = params[:content][:content_type]
+		
 		if params[:content] != nil
 			puts "saving content"
-			media_object = params[:content][content_type]
-			media_name = media_object.original_filename + trip.contents.length.to_s
-			puts "name is: "
-			puts media_name
-			puts "trip is"
-			puts params[:trip_id]
-			directory = "app/assets/images/"
-			path = File.join(directory, media_name)
-			File.open(path, "wb") { |f| f.write(media_object.read) }
-			Content.save_content(content_type, media_name, params[:trip_id], params[:content][:milestone_index], "")
+			content_type = params[:content][:content_type]
+			value = ""
+
+			if content_type == "video"
+				puts "saving a video"
+				value = params["video"]["panda_video_id"]
+
+			elsif content_type == "image"
+				
+				media_object = params[:content][content_type]
+
+				media_name = media_object.original_filename + trip.contents.length.to_s
+				puts "name is: "
+				puts media_name
+				puts "trip is"
+				puts params[:trip_id]
+				directory = "app/assets/images/"
+				path = File.join(directory, media_name)
+				File.open(path, "wb") { |f| f.write(media_object.read) }
+				value = media_name
+			end
+			puts "value is " + value 
+			Content.save_content(content_type, value, params[:trip_id], params[:content][:milestone_index], "")
 
 			flash[:notice] = "Media successfully uploaded!"
 			
@@ -95,13 +119,8 @@ class TripController < ApplicationController
 
 	def layout
 
-		curr = session["user"]
-		puts "curr"
-		puts curr
-
 		trip_id = params[:id]
-		puts "trip"
-		puts trip_id
+
 
 		if session["user"].nil?
 			redirect_to "/splash/login"
@@ -111,8 +130,7 @@ class TripController < ApplicationController
 
 		@user = User.find(session["user"])
 		@trip = Trip.find(trip_id)
-		puts "trip"
-		puts @trip
+
         
         temp = Array.new()
         for content in @trip.contents
@@ -134,5 +152,7 @@ class TripController < ApplicationController
 		#@all_content = Content.find(:all)
 
 
+	end
+	def test
 	end
 end

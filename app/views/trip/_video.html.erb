@@ -1,3 +1,6 @@
-<div class="video">
-<iframe class="youtube" src=<%= content %> frameborder="0" allowfullscreen></iframe>
+<div class=<%=frame%>>
+ <video id="movie"  preload="none" 
+    poster="<%= h264_encoding.screenshots.first %>" controls>
+    <source src="<%= h264_encoding.url %>" type="video/mp4">
+  </video>
 </div>

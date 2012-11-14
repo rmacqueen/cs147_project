@@ -4,6 +4,9 @@ gem 'rails', '3.2.8'
 
 gem 'image_size'
 
+gem 'panda', '~> 1.5.0'
+gem 'typhoeus', '~> 0.2.4'
+
 group :development do
   gem 'sqlite3', '1.3.5'
 end

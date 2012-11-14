@@ -16,6 +16,9 @@
 	<%= javascript_include_tag "jquery-1.8.2.min.js" %>
     <%= javascript_include_tag "jquery.mobile-1.2.0.js" %>
 
+
+  	<%= javascript_include_tag 'http://cdn.pandastream.com/u/1.4/jquery.panda-uploader.min.js' %>
+
 </head> 
 <body> 
 
@@ -71,6 +74,15 @@
 
 	<% end %>
 
+
+	<% if content.content_type == "video" %>
+		<% original_video = content.panda_video %>
+	    <% h264_encoding = original_video.encodings["h264"] %>
+		<%= render :partial => "video", :locals => {:h264_encoding => h264_encoding, :frame => klass} %>
+
+	<% end %>
+
+	
 	<% if index == 2 %>
 		</div>
 	<%end%>
@@ -92,19 +104,36 @@ function submitForm(obj, content_type){
 	field.value = uploadMilestoneIndex;
 
 	field = document.getElementById("upload_content_type");
-	field.value = content_type;
+	field.value = "image";
 
 	document.myForm.submit();
     event.preventDefault();
 }
 
+function submitVideo(obj){
+
+	console.log("submit video here");
+	field = document.getElementById("image_upload_milestone");
+	field.value = uploadMilestoneIndex;
+	field = document.getElementById("upload_content_type");
+	field.value = "video";
+	sub = document.getElementById("submit_button");
+	sub.click();
+	//document.myForm.submit();
+//	event.preventDefault();
+}
+
 function getImageFile(){
 	console.log("Getting an image")
+	
+	
    document.getElementById("upfile_image").click();
  }
 
 function getVideoFile(){
 	console.log("Getting a video")
+	e = document.getElementById("upfile_video");
+	console.log(e);
 
    document.getElementById("upfile_video").click();
  }
@@ -134,10 +163,11 @@ function getVideoFile(){
 
 	<div id="footer">
 
+
 	<div data-role="footer" data-id="samebar" class="nav-glyphish-example" data-position="fixed" data-tap-toggle="false">
 		<div data-role="navbar" class="nav-glyphish-example" data-grid="c">
 			<%= form_for :content, :html=>{:name=>"myForm", :multipart=>true, "data-ajax" => "false"}, :url => {:action => :post_add} do |form| %>
-
+			
 		<ul>
 
 			<li><a href="#" id="home" data-icon="custom"  onclick="getImageFile()">Photo</a>
@@ -146,25 +176,48 @@ function getVideoFile(){
 					<input type="number" name="trip_id" value=<%=@trip.id%>>
 
 				</div>
+				
 				<div style='height: 0px;width: 0px; overflow:hidden;'>
 
 					<%= form.file_field :image, :accepts=>"image/*", :id=>"upfile_image", :onchange=>"submitForm(this, \"image\")" %>
 					<%= form.text_field :milestone_index, :id=>"image_upload_milestone" %>
 					<%= form.text_field :content_type, :id=>"upload_content_type" %>
 
-					<%= form.file_field :video, :accepts=>"video/*", :id=>"upfile_video", :onchange=>"submitForm(this, \"video\")" %>
+					<input type="hidden" name="video[panda_video_id]" id="returned_video_id" />
 
+					
+					
 					<!--<input id="upfile_image" type="file" value="upload" accept="image/*" capture="camera" onchange="sub(this)"/>-->
+					<script>
+					console.log("here")
+					  <% auth_params = Panda.signed_params('post', "/videos.json") %>
+					  jQuery("#returned_video_id").pandaUploader(<%=raw auth_params.to_json %>, {
+					    // Uncomment the line below if your panda account is in the EU
+					    // api_host: 'api-eu.pandastream.com',
+					    //upload_progress_id: 'upload_progress'
+					  });
+					  console.log("now here")
+					  hidden = document.getElementById("returned_video_id");
+					  console.log(hidden);
+					  input = hidden.nextSibling;
+					  input.setAttribute("id", "upfile_video");
+					  input.setAttribute("onchange", "submitVideo(this)");
+					  console.log(input);
+					</script>
+
+					<%= form.submit "Upload video", :id=>"submit_button" %>
 
 				</div>
+				
 			</li>
 			<li><a href="#" id="key" data-icon="custom" onclick="getVideoFile()">Video</a>
-				<div style='height: 0px;width: 0px; overflow:hidden;'><input id="upfile_video" type="file" value="upload" accept="video/*" capture="camcorder" onchange="sub(this)"/></div>
+				<div style='height: 0px;width: 0px; overflow:hidden;'></div>
 			</li>
 			<li><a href="#" id="beer" data-icon="custom" >Text</a></li>
 			<li><a href="#" id="skull" data-icon="custom">More</a></li>
 
 		</ul>
+		 
 		<% end %>
 		</div>
 	</div>

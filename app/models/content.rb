@@ -25,4 +25,8 @@ class Content < ActiveRecord::Base
 
 		content.save()
 	end
+
+	def panda_video
+		@panda_video ||= Panda::Video.find(value)
+	end
 end

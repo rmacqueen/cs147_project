@@ -1,0 +1,6 @@
+development:
+  access_key: c257303a24405e10d4ed
+  secret_key: 62a42e74933800a164af
+  cloud_id: 4aa740023e604b3f29ce0ba2042b2f40
+  # Uncomment the line below if your panda account is in the EU
+  # api_host: api-eu.pandastream.com
