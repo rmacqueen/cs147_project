@@ -209,6 +209,8 @@ img{
 	margin-top: -2px;
 }
 
+/* Footer */
+
 #footer{
 	visibility: hidden;
 }
@@ -232,4 +234,44 @@ img{
 	padding-right:3%;
 	
 	text-align: center;
+}
+
+#photo .ui-icon { 
+	background:  url(res/icon_photo1.png) 50% 50% no-repeat;  
+	background-size: 20px 20px; 
+}
+
+#video .ui-icon { 
+	background:  url(res/icon_video1.png) 50% 50% no-repeat;  
+	background-size: 24px 24px; 
+}
+
+#text .ui-icon { 
+	background:  url(res/icon_text1.png) 50% 50% no-repeat; 
+	background-size: 24px 24px; 
+}
+
+#more .ui-icon { 
+	background:  url(res/icon_more1.png) 50% 50% no-repeat;  
+	background-size: 24px 24px; 
+}
+
+#music .ui-icon { 
+	background:  url(res/icon_music1.png) 50% 50% no-repeat;  
+	background-size: 25px 25px; 
+}
+
+#voice .ui-icon { 
+	background:  url(res/icon_voice1.png) 50% 50% no-repeat;  
+	background-size: 24px 24px; 
+}
+
+#link .ui-icon { 
+	background:  url(res/icon_link1.png) 50% 50% no-repeat;  
+	background-size: 24px 24px; 
+}
+
+#map .ui-icon { 
+	background:  url(res/icon_map1.png) 50% 50% no-repeat;  
+	background-size: 24px 24px; 
 }

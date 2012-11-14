@@ -139,7 +139,7 @@ function getVideoFile(){
 
 		<ul>
 
-			<li><a href="#" id="home" data-icon="custom"  onclick="getImageFile()">Photo</a>
+			<li><a href="#" id="photo" data-icon="custom"  onclick="getImageFile()">Photo</a>
 				<div style='height: 0px;width: 0px; overflow:hidden;'>
 
 					<input type="number" name="trip_id" value=<%=@trip.id%>>
@@ -154,12 +154,11 @@ function getVideoFile(){
 
 				</div>
 			</li>
-			<li><a href="#" id="key" data-icon="custom" onclick="getVideoFile()">Video</a>
+			<li><a href="#" id="video" data-icon="custom" onclick="getVideoFile()">Video</a>
 				<div style='height: 0px;width: 0px; overflow:hidden;'><input id="upfile_video" type="file" value="upload" accept="video/*" capture="camcorder" onchange="sub(this)"/></div>
 			</li>
-			<li><a href="#" id="beer" data-icon="custom" >Text</a></li>
-			<li><a href="#" id="skull" data-icon="custom">More</a></li>
-
+			<li><a href="#" id="text" data-icon="custom" >Text</a></li>
+			<li><a href="#" id="more" data-icon="custom">More</a></li>
 		</ul>
 		<% end %>
 		</div>
