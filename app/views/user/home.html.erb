@@ -15,7 +15,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
     <%= javascript_include_tag "jquery-1.8.2.min.js" %>
     <%= javascript_include_tag "jquery.mobile-1.2.0.js" %>
-
     
 
     <%= javascript_include_tag "slides.min.jquery.js" %>
@@ -33,6 +32,7 @@
 	</div><!-- /header -->
 
 	<div data-role="content">
+		<h2> Here are your trips! </h2>
 
 	<script>
 		$(function(){
@@ -45,7 +45,12 @@
 				slideSpeed: 350,
 				fadeSpeed: 500,
 				generateNextPrev: true,
-				generatePagination: false
+				generatePagination: false,
+				slidesLoaded: function() {
+					$('.caption').animate({
+						bottom:0
+					},200);
+				}
 			});
 		});
 	</script>
@@ -62,6 +67,7 @@
 				<ul class="pagination">
 					<% for trip in @trips %>
 					<li><a href="#"><%= image_tag trip.cover_photo, :width=>55, :alt=>"sdf" %></a></li>
+					
 					<% end %>
 				</ul>
 			</div>

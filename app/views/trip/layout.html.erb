@@ -87,26 +87,27 @@
 
 var uploadMilestoneIndex = 0;
 
-function getImageFile(){
-	console.log("Getting an image")
+function submitForm(obj, content_type){
 	field = document.getElementById("image_upload_milestone");
 	field.value = uploadMilestoneIndex;
+
+	field = document.getElementById("upload_content_type");
+	field.value = content_type;
+
+	document.myForm.submit();
+    event.preventDefault();
+}
+
+function getImageFile(){
+	console.log("Getting an image")
    document.getElementById("upfile_image").click();
  }
 
 function getVideoFile(){
 	console.log("Getting a video")
+
    document.getElementById("upfile_video").click();
  }
-
- function sub(obj){
-    var file = obj.value;
-    var fileName = file.split("\\");
-    console.log(file);
-    //document.getElementById("yourBtn").innerHTML = fileName[fileName.length-1];
-    document.myForm.submit();
-    event.preventDefault();
-  }
 
 	var bypass = false;
 	
@@ -147,8 +148,11 @@ function getVideoFile(){
 				</div>
 				<div style='height: 0px;width: 0px; overflow:hidden;'>
 
-					<%= form.file_field :photo, :accepts=>"image/*", :id=>"upfile_image", :onchange=>"sub(this)" %>
+					<%= form.file_field :image, :accepts=>"image/*", :id=>"upfile_image", :onchange=>"submitForm(this, \"image\")" %>
 					<%= form.text_field :milestone_index, :id=>"image_upload_milestone" %>
+					<%= form.text_field :content_type, :id=>"upload_content_type" %>
+
+					<%= form.file_field :video, :accepts=>"video/*", :id=>"upfile_video", :onchange=>"submitForm(this, \"video\")" %>
 
 					<!--<input id="upfile_image" type="file" value="upload" accept="image/*" capture="camera" onchange="sub(this)"/>-->
 

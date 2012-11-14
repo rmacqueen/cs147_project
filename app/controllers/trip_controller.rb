@@ -25,20 +25,21 @@ class TripController < ApplicationController
 		user = User.find(session["user"])
 		puts params
 		trip = Trip.find(params[:trip_id])
+		content_type = params[:content][:content_type]
 		if params[:content] != nil
-			puts "saving photo"
-			photo_object = params[:content][:photo]
-			photo_name = photo_object.original_filename + trip.contents.length.to_s
+			puts "saving content"
+			media_object = params[:content][content_type]
+			media_name = media_object.original_filename + trip.contents.length.to_s
 			puts "name is: "
-			puts photo_name
-			puts "trip is is"
+			puts media_name
+			puts "trip is"
 			puts params[:trip_id]
 			directory = "app/assets/images/"
-			path = File.join(directory, photo_name)
-			File.open(path, "wb") { |f| f.write(photo_object.read) }
-			Content.save_content("image", photo_name, params[:trip_id], params[:content][:milestone_index], "")
+			path = File.join(directory, media_name)
+			File.open(path, "wb") { |f| f.write(media_object.read) }
+			Content.save_content(content_type, media_name, params[:trip_id], params[:content][:milestone_index], "")
 
-			flash[:notice] = "Photo successfully uploaded!"
+			flash[:notice] = "Media successfully uploaded!"
 			
 		else
 			flash[:notice] = "No text or no user!"

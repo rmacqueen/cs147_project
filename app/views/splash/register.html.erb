@@ -38,6 +38,7 @@
 
     <div data-role="content">
         <%=image_tag "vintage_city.jpeg", :height=>"60" %>
+        <a class="error_message"><%= flash[:notice] %></a>
     
     <form id="form" action="/splash/post_register" method="post">
         <div data-role="fieldcontain">
