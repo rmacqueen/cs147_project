@@ -8,6 +8,7 @@ class CreateContents < ActiveRecord::Migration
       t.column :content_type, :string
   		t.column :value, :string
   		t.column :other, :string
+        t.column :milestone_index, :integer
   	end
   end
 

@@ -29,9 +29,18 @@
 	</div><!-- /header -->
 
 	<div data-role="content" id="page_test" onclick="hideEditFooter()">
+	<% lastMilestoneIndex = 0 %>
 		<% i = 0 %>
 <% for content in @all_content %>
+	<% if content.milestone_index != lastMilestoneIndex %>
+		<div class="placeholder" onclick="showEditFooter(<%= lastMilestoneIndex %>)">
+			<h3>Tap to add more</h3>
+		</div>
+		<% lastMilestoneIndex += 1 %>
+	<% end %>
+
 	<% if content.content_type == "milestone" %>
+		<% firstItem = false %>
 		<h2 class="days"><%= content.value %> </h2>
 		<% i = 0 %>
 		<% next %> 
@@ -68,8 +77,7 @@
 
 	<% i+=1 %>
 <% end %>
-
-<div class="placeholder" onclick="showEditFooter()">
+<div class="placeholder" onclick="showEditFooter(<%= lastMilestoneIndex %>)">
 	<h3>Tap to add more</h3>
 </div>
 
@@ -77,8 +85,12 @@
 
 <script>
 
+var uploadMilestoneIndex = 0;
+
 function getImageFile(){
 	console.log("Getting an image")
+	field = document.getElementById("image_upload_milestone");
+	field.value = uploadMilestoneIndex;
    document.getElementById("upfile_image").click();
  }
 
@@ -98,8 +110,9 @@ function getVideoFile(){
 
 	var bypass = false;
 	
-	function showEditFooter() {
-	
+	function showEditFooter(milestoneIndex) {
+		uploadMilestoneIndex = milestoneIndex;
+		console.log(milestoneIndex);
 	  footer = document.getElementById("footer");
 	  if (footer.style.visibility == "hidden" || footer.style.visibility == "") {
 		  footer.style.visibility = "visible";
@@ -135,6 +148,7 @@ function getVideoFile(){
 				<div style='height: 0px;width: 0px; overflow:hidden;'>
 
 					<%= form.file_field :photo, :accepts=>"image/*", :id=>"upfile_image", :onchange=>"sub(this)" %>
+					<%= form.text_field :milestone_index, :id=>"image_upload_milestone" %>
 
 					<!--<input id="upfile_image" type="file" value="upload" accept="image/*" capture="camera" onchange="sub(this)"/>-->
 

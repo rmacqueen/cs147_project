@@ -7,7 +7,7 @@ class TripController < ApplicationController
 		trip = Trip.new(:cover_photo => "bieber1.jpg", :name => "New Trip", :user_id => session["user"])
 		trip.save()
 		time = Time.new()
-		day = Content.new(:date_time => time, :value => "New Day", :trip_id => trip.id, :content_type => "milestone")
+		day = Content.new(:date_time => time, :value => "New Day", :trip_id => trip.id, :content_type => "milestone", :milestone_index => 0)
 		day.save()
 		
 		redirect_to "/trip/layout/" + trip.id.to_s
@@ -36,7 +36,7 @@ class TripController < ApplicationController
 			directory = "app/assets/images/"
 			path = File.join(directory, photo_name)
 			File.open(path, "wb") { |f| f.write(photo_object.read) }
-			Content.save_content("image", photo_name, params[:trip_id], "")
+			Content.save_content("image", photo_name, params[:trip_id], params[:content][:milestone_index], "")
 
 			flash[:notice] = "Photo successfully uploaded!"
 			
@@ -61,7 +61,7 @@ class TripController < ApplicationController
 			directory = "app/assets/images/"
 			path = File.join(directory, photo_name)
 			File.open(path, "wb") { |f| f.write(photo_object.read) }
-			Content.save_content("image", photo_name, 1, "")
+			Content.save_content("image", photo_name, 1, params[:milestone_index], "")
 
 			flash[:notice] = "Photo successfully uploaded!"
 			
@@ -112,7 +112,23 @@ class TripController < ApplicationController
 		@trip = Trip.find(trip_id)
 		puts "trip"
 		puts @trip
-		@all_content = @trip.contents
+        
+        temp = Array.new()
+        for content in @trip.contents
+            index = content.milestone_index
+            if temp[index] == nil
+                temp[index] = Array.new()
+            end
+            temp[index] = temp[index].push(content)
+        end
+        
+        @all_content = Array.new()
+        for milestone in temp
+            milestone.sort! { |a,b| a.trip_id <=> b.trip_id }
+            @all_content.concat(milestone)
+        end
+        #temp = @trip.contents.sort { |a,b| a.trip_id <=> b.trip_id }
+		#@all_content = temp.sort { |a,b| a.milestone_index <=> b.milestone_index }
 
 		#@all_content = Content.find(:all)
 

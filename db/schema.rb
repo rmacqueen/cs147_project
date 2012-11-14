@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20121112052935) do
     t.string  "content_type"
     t.string  "value"
     t.string  "other"
+    t.integer "milestone_index"
   end
 
   create_table "sessions", :force => true do |t|

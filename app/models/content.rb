@@ -1,14 +1,15 @@
 class Content < ActiveRecord::Base
 	belongs_to :trip
-   attr_accessible :trip_id, :date_time, :value, :other, :content_type
+    attr_accessible :trip_id, :date_time, :value, :other, :content_type, :milestone_index
 
-   def self.save_content(content_type, value, trip_id, other)
+   def self.save_content(content_type, value, trip_id, milestone_index, other)
    		base_dir = "app/assets/images/"
 		
 		content = Content.new
 		content.trip_id = trip_id
 		content.date_time = Time.new
 		content.value = value
+        content.milestone_index = milestone_index
 		content.content_type = content_type
 		content.other = other
 
