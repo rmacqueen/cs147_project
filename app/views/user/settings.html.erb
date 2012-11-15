@@ -1,0 +1,49 @@
+
+<!DOCTYPE html> 
+<html>
+
+<head>
+	<title>Tripselektor</title> 
+	<meta charset="utf-8">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+ 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<%= stylesheet_link_tag "jquery.mobile-1.2.0" %>
+	<%= stylesheet_link_tag "style" %>
+	<%= stylesheet_link_tag "trip_style" %>
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+    <%= javascript_include_tag "jquery-1.8.2.min.js" %>
+    <%= javascript_include_tag "jquery.mobile-1.2.0.js" %>
+    
+
+    <%= javascript_include_tag "slides.min.jquery.js" %>
+	
+
+</head> 
+<body> 
+
+<div data-role="page">
+
+	<div data-role="header">
+		<a href="#" class="ui-btn-left">Settings</a>
+		<h1>Tripselektor</h1>
+		<a href="/trip/new_trip" class="ui-btn-right" data-ajax="false">New Trip</a>
+	</div><!-- /header -->
+
+	<div data-role="content">
+		<h2>Your Account Information</h2>
+
+		<h3>First Name: <%=@user.first_name%></h3>
+		<h3>Last Name: <%=@user.last_name%></h3>
+		<h3>Email: <%=@user.email%></h3></br>
+		
+		<form action="/user/logout">
+			<input type="submit" value="Logout" />
+		</form>
+
+	</div><!-- /content -->
+</div><!-- /page -->
+
+</body>
+</html>

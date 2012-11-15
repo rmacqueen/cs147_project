@@ -118,13 +118,13 @@ class LoadData < ActiveRecord::Migration
     first_user = User.new(:first_name => "test", :last_name => "test", :email => "test@test.com", :password => "test")
     first_user.save(:validate => false)
 
-     trip1 = Trip.new(:name => "EuroTrip", :user_id => 1, :cover_photo => "bieber1.jpg")
+     trip1 = Trip.new(:name => "EuroTrip", :user_id => 1, :cover_photo => "slide_3.jpg")
     trip1.save()
 
     trip2 = Trip.new(:name => "Beach", :user_id => 1, :cover_photo => "slide_1.jpg")
     trip2.save()
 
-    trip3 = Trip.new(:name => "Beach", :user_id => 1, :cover_photo => "slide_2.jpg")
+    trip3 = Trip.new(:name => "Hiking", :user_id => 1, :cover_photo => "slide_2.jpg")
     trip3.save()
   end
 
