@@ -40,6 +40,11 @@ class LoadData < ActiveRecord::Migration
     photo2_1.width = size.w
     photo2_1.height = size.h
     photo2_1.save(:validate => false)
+    
+    #Map 1#
+    map1 = Content.new(:date_time => "2011-04-17 10:44:23",
+        :value => "33.6803|-116.1731", :trip_id => 1, :content_type => "map", :milestone_index => 0)
+    map1.save(:validate => false)
 
 	#Photo 3#
     photo3_1 = Content.new(:date_time => "2011-04-17 10:44:23",
