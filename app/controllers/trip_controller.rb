@@ -16,6 +16,9 @@ class TripController < ApplicationController
 	def add
 		puts "in trip add"
 		puts session["user"]
+		puts params
+		@trip_id = params["trip_id"]
+		@milestone_index = params["index"]
 
 	end
 
@@ -59,6 +62,9 @@ class TripController < ApplicationController
 				path = File.join(directory, media_name)
 				File.open(path, "wb") { |f| f.write(media_object.read) }
 				value = media_name
+			elsif content_type == "text"
+				puts "saving text"
+				value = params[:content][:blog]
 			end
 			puts "value is " + value 
 			Content.save_content(content_type, value, params[:trip_id], params[:content][:milestone_index], "")

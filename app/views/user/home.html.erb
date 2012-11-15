@@ -28,7 +28,7 @@
 	<div data-role="header">
 		<a href="#" class="ui-btn-left">Settings</a>
 		<h1>Tripselektor</h1>
-		<a href="/trip/new_trip" class="ui-btn-right">New Trip</a>
+		<a href="/trip/new_trip" class="ui-btn-right" data-ajax="false">New Trip</a>
 	</div><!-- /header -->
 
 	<div data-role="content">
@@ -57,10 +57,10 @@
 		<div id="container">
 		<div id="products_example">
 			<div id="products">
-				<div class="slides_container">
+				<div class="slides_container" data-ajax="false">
 					<% for trip in @trips %>
 					<% link = "/trip/layout/" + trip.id.to_s %>
-					<a href=<%=link%>><%= image_tag trip.cover_photo, :width=>366, :alt=>"sdf" %></a>
+					<a data-ajax="false" href=<%=link%>> <%= image_tag trip.cover_photo, :width=>366, :alt=>"sdf" %></a>
 					<% end %>
 
 				</div>

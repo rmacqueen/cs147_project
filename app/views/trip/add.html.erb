@@ -28,30 +28,21 @@
 
 	</div><!-- /header -->
 	<%= flash[:notice] %>
-	<form action="/trip/post_add" method="post">  
-	<div data-role="content">
-		<div data-role="fieldcontain">
-			<!--<label for="textarea">Blog:</label>-->
-			<textarea cols="40" rows="20" name="textarea" id="textarea"></textarea>
-		</div>
-		<input type="submit" value="Submit Text" />
 
-	</form>
+	<%= form_for :content, :html=>{:name=>"myForm", :multipart=>true, "data-ajax" => "false"}, :url => {:action => :post_add} do |form| %>
+	<input type="hidden" name="trip_id" value=<%=@trip_id %> >
+
+	<%= form.text_field :milestone_index, :type=>"hidden", :value=>@milestone_index, :id=>"image_upload_milestone" %>
+	<%= form.text_field :content_type, :type=>"hidden", :value=>"text", :id=>"upload_content_type" %>
+
+	<%= form.text_area :blog, :id=>"blog_post" %>
+	<%= form.submit "Submit Post", :id=>"submit_button", "data-ajax"=>"false" %>
+
+	<%end%>
 
 			
 	</div><!-- /content -->
 
-	<div data-role="footer" data-id="samebar" class="nav-glyphish-example" data-position="fixed" data-tap-toggle="false">
-		<div data-role="navbar" class="nav-glyphish-example" data-grid="c">
-		<ul>
-			<li><a href="/trip/add" id="home" data-icon="custom" class="ui-btn-active">Text</a></li>
-			<li><a href="/trip/add_image" id="key" data-icon="custom">Photo</a></li>
-			<li><a href="/trip/add_video" id="beer" data-icon="custom" >Video</a></li>
-			<li><a href="/trip/add_audio" id="skull" data-icon="custom">Audio</a></li>
-
-		</ul>
-		</div>
-	</div>
 </div><!-- /page -->
 
 </body>

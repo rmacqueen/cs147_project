@@ -25,7 +25,7 @@
 <div data-role="page">
 
 	<div data-role="header">
-		<a href="/user/home/1" class="ui-btn-left">Back</a>
+		<a href="/user/home/1" class="ui-btn-left" data-ajax="false">Back</a>
 		<h1><%= @trip.name %></h1>
 
 
@@ -139,10 +139,16 @@ function getVideoFile(){
  }
 
 	var bypass = false;
+
 	
 	function showEditFooter(milestoneIndex) {
 		uploadMilestoneIndex = milestoneIndex;
-		console.log(milestoneIndex);
+		add_text_link = document.getElementById("text");
+
+		var base = "/trip/add?trip_id=" + <%=@trip.id%>;
+
+		add_text_link.href = base + "&index=" + uploadMilestoneIndex; 
+
 	  footer = document.getElementById("footer");
 	  if (footer.style.visibility == "hidden" || footer.style.visibility == "") {
 		  footer.style.visibility = "visible";
@@ -151,7 +157,8 @@ function getVideoFile(){
 	}
 	
 	function hideEditFooter() {
-	 
+
+	 	
 	  footer = document.getElementById("footer");
 	  if (footer.style.visibility == "visible" && bypass == false) {
 		  footer.style.visibility = "hidden";
@@ -205,7 +212,7 @@ function getVideoFile(){
 					  console.log(input);
 					</script>
 
-					<%= form.submit "Upload video", :id=>"submit_button" %>
+					<%= form.submit "Upload video", :id=>"submit_button", "data-ajax"=>"false" %>
 
 				</div>
 				
@@ -215,7 +222,7 @@ function getVideoFile(){
 				<div style='height: 0px;width: 0px; overflow:hidden;'></div>
 
 			</li>
-			<li><a href="#" id="text" data-icon="custom" >Text</a></li>
+			<li><a href="/trip/add?trip_id=1" id="text" data-icon="custom" >Text</a></li>
 			<li><a href="#" id="more" data-icon="custom">More</a></li>
 		</ul>
 		 
@@ -224,6 +231,8 @@ function getVideoFile(){
 	</div>
 
 </div>
+
+
 	
 
 </div><!-- /page -->
