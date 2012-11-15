@@ -1,0 +1,50 @@
+// Place all the styles related to the trip controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.item{
+	overflow: hidden;
+ 	opacity: 0.4;
+   transition: opacity .25s ease-in-out;
+   -moz-transition: opacity .25s ease-in-out;
+   -webkit-transition: opacity .25s ease-in-out;
+}
+
+ .test{
+ 	overflow: hidden;
+ 	opacity: 0.4;
+   transition: opacity .25s ease-in-out;
+   -moz-transition: opacity .25s ease-in-out;
+   -webkit-transition: opacity .25s ease-in-out;
+ }
+
+ .test:hover{
+ 	opacity: 1.0;
+ }
+
+ .trip_name{
+ 	font-size: 50%;
+ }
+
+.left{
+	overflow: hidden;
+	height:120px;
+
+	width:44%;
+	float:left;
+	border-style: solid;
+	border-width: 4px;
+	margin: 4px 4px 4px 4px
+
+}
+
+.right{
+	overflow: hidden;
+	height:120px;
+	width:44%;
+	float:right;
+	border-style: solid;
+	border-width: 4px;
+	margin: 4px 4px 4px 4px
+	
+}

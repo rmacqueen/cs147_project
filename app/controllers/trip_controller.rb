@@ -4,7 +4,7 @@ class TripController < ApplicationController
 	end
 
 	def new_trip
-		trip = Trip.new(:cover_photo => "bieber1.jpg", :name => "New Trip", :user_id => session["user"])
+		trip = Trip.new(:cover_photo => "stock.jpg", :name => "New Trip", :user_id => session["user"])
 		trip.save()
 		time = Time.new()
 		day = Content.new(:date_time => time, :value => "New Day", :trip_id => trip.id, :content_type => "milestone", :milestone_index => 0)

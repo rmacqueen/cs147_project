@@ -24,7 +24,7 @@ class SplashController < ApplicationController
 				puts "password OK"
 				session["user"] = user.id
 				puts session["user"]
-				redirect_to(:controller => :user, :action => :home, :id => user.id)
+				redirect_to(:controller => :user, :action => :home_alt, :id => user.id)
 			else
 				flash[:notice] = "Sorry, that username password combination is incorrect - please try again"
 				redirect_to :action => :login
@@ -50,7 +50,7 @@ class SplashController < ApplicationController
 			@user.save
 			flash[:notice] = "Thanks #{@user.first_name}! Your account was successfully created!! Please login below:"
 			session["user"] = @user.id
-			redirect_to "/user/home"	
+			redirect_to "/user/home_alt"	
 		else
 			puts "ERRROORR"
 			flash[:notice] = @user.errors.full_messages
