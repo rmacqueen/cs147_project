@@ -28,6 +28,11 @@
 	<div data-role="header">
 		<a href="/user/home/1" class="ui-btn-left" data-ajax="false">Back</a>
 		<h1><%= @trip.name %></h1>
+		<% if params[:edit] == "true" %>
+		<a href="/trip/layout/<%= params[:id] %>" class="ui-btn-right" data-theme="b" data-ajax="false">Done</a>
+		<% else %>
+		<a href="?edit=true" class="ui-btn-right" data-theme="b" data-ajax="false">Edit Trip</a>
+		<% end %>
 
 
 	</div><!-- /header -->
@@ -36,11 +41,18 @@
 	<% lastMilestoneIndex = 0 %>
 		<% i = 0 %>
 <% for content in @all_content %>
-	<% if content.milestone_index != lastMilestoneIndex %>
-		<div class="placeholder" onclick="showEditFooter(<%= lastMilestoneIndex %>)">
-			<h3>Tap to add more</h3>
+	<% if params[:edit] == "true" && content.milestone_index != lastMilestoneIndex %>
+		<div class="newContentWrapper">
+			<div class="placeholder" onclick="showEditFooter(<%= lastMilestoneIndex %>)">
+				<h3>Tap to add more</h3>
+			</div>
+			<div class="milestoneButton" onclick="addNewMilestone(<%= lastMilestoneIndex %>)">
+				<h3>Add Milestone</h3>
+			</div>
 		</div>
-		<% lastMilestoneIndex += 1 %>
+		<% if content.milestone_index != nil
+		 lastMilestoneIndex = content.milestone_index
+		 end %>
 	<% end %>
 
 	<% if content.content_type == "milestone" %>
@@ -97,9 +109,17 @@
 
 	<% i+=1 %>
 <% end %>
-<div class="placeholder" onclick="showEditFooter(<%= lastMilestoneIndex %>)">
-	<h3>Tap to add more</h3>
-</div>
+
+<% if params[:edit] == "true" %>
+	<div class="newContentWrapper">
+		<div class="placeholder" onclick="showEditFooter(<%= lastMilestoneIndex %>)">
+			<h3>Tap to add more</h3>
+		</div>
+		<div class="milestoneButton" onclick="addNewMilestone(<%= lastMilestoneIndex %>)">
+			<h3>Add Milestone</h3>
+		</div>
+	</div>
+<% end %>
 
 </div><!-- /content -->
 
@@ -145,10 +165,13 @@ function getVideoFile(){
 
    document.getElementById("upfile_video").click();
  }
+ 
+ 	function addNewMilestone(lastMilestoneIndex) {
+	 	window.location = "/trip/add_milestone?trip_id=" + <%=@trip.id%> + "&lastMilestone=" + lastMilestoneIndex;
+ 	}
 
 	var bypass = false;
 
-	
 	function showEditFooter(milestoneIndex) {
 		uploadMilestoneIndex = milestoneIndex;
 		add_text_link = document.getElementById("text");
@@ -173,13 +196,19 @@ function getVideoFile(){
 	  }
 	  bypass = false;
 	}
+	
+	
+	function EditMilestoneTitle(milestoneID) {
+		console.log(milestoneID);
+	}
+	
  
 </script>
 
-	<div id="footer">
+	<div style="visibility: hidden;" onload="hideEditFooter()">
 
 
-	<div data-role="footer" data-id="samebar" class="nav-glyphish-example" data-position="fixed" data-tap-toggle="false">
+	<div id="footer" data-role="footer" data-id="samebar" class="nav-glyphish-example" data-position="fixed" data-tap-toggle="false">
 		<div data-role="navbar" class="nav-glyphish-example" data-grid="c">
 			<%= form_for :content, :html=>{:name=>"myForm", :multipart=>true, "data-ajax" => "false"}, :url => {:action => :post_add} do |form| %>
 			
