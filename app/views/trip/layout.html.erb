@@ -8,6 +8,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
  	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 
 	<%= stylesheet_link_tag "jquery.mobile-1.2.0" %>
 	<%= stylesheet_link_tag "style" %>
@@ -51,7 +52,7 @@
 
 	<% klass = "" %>
 	<% index = i % 3 %>
-	<% puts index %>
+
 	<% case index %>
 	<% when 0 %>
 		<% klass = "cover" %>
@@ -80,6 +81,13 @@
 	    <% h264_encoding = original_video.encodings["h264"] %>
 		<%= render :partial => "video", :locals => {:h264_encoding => h264_encoding, :frame => klass} %>
 
+	<% end %>
+
+	<% if content.content_type == "map" %>
+
+		<% coords = content.value.split("|"); %>
+
+		<%= render :partial => "map", :locals => {:lat=>coords[0], :lng => coords[1], :frame => klass} %> 
 	<% end %>
 
 	
@@ -196,20 +204,20 @@ function getVideoFile(){
 					
 					<!--<input id="upfile_image" type="file" value="upload" accept="image/*" capture="camera" onchange="sub(this)"/>-->
 					<script>
-					console.log("here")
+
 					  <% auth_params = Panda.signed_params('post', "/videos.json") %>
 					  jQuery("#returned_video_id").pandaUploader(<%=raw auth_params.to_json %>, {
 					    // Uncomment the line below if your panda account is in the EU
 					    // api_host: 'api-eu.pandastream.com',
 					    //upload_progress_id: 'upload_progress'
 					  });
-					  console.log("now here")
+
 					  hidden = document.getElementById("returned_video_id");
-					  console.log(hidden);
+
 					  input = hidden.nextSibling;
 					  input.setAttribute("id", "upfile_video");
 					  input.setAttribute("onchange", "submitVideo(this)");
-					  console.log(input);
+
 					</script>
 
 					<%= form.submit "Upload video", :id=>"submit_button", "data-ajax"=>"false" %>
@@ -222,8 +230,8 @@ function getVideoFile(){
 				<div style='height: 0px;width: 0px; overflow:hidden;'></div>
 
 			</li>
-			<li><a href="/trip/add?trip_id=1" id="text" data-icon="custom" >Text</a></li>
-			<li><a href="#" id="more" data-icon="custom">More</a></li>
+			<li><a href="/trip/add?trip_id=1" id="text" data-icon="custom" data-ajax="false" >Text</a></li>
+			<li><a href="#" id="more" data-icon="custom" data-ajax="false">More</a></li>
 		</ul>
 		 
 		<% end %>
