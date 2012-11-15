@@ -35,7 +35,7 @@ class TripController < ApplicationController
 	def post_add
 
 		puts "In post_add"
-		puts session["user"]
+
 		user = User.find(session["user"])
 		puts params
 		trip = Trip.find(params[:trip_id])
@@ -54,10 +54,7 @@ class TripController < ApplicationController
 				media_object = params[:content][content_type]
 
 				media_name = media_object.original_filename + trip.contents.length.to_s
-				puts "name is: "
-				puts media_name
-				puts "trip is"
-				puts params[:trip_id]
+
 				directory = "app/assets/images/"
 				path = File.join(directory, media_name)
 				File.open(path, "wb") { |f| f.write(media_object.read) }
@@ -65,6 +62,12 @@ class TripController < ApplicationController
 			elsif content_type == "text"
 				puts "saving text"
 				value = params[:content][:blog]
+				latlng = params[:content][:latlng]
+				city_name = params[:content][:city_name]
+				Content.save_content("map", latlng, params[:trip_id], params[:content][:milestone_index], city_name);
+
+
+
 			end
 			puts "value is " + value 
 			Content.save_content(content_type, value, params[:trip_id], params[:content][:milestone_index], "")
@@ -75,7 +78,7 @@ class TripController < ApplicationController
 			flash[:notice] = "No text or no user!"
 		end
 		
-		redirect_to "/trip/layout/" + params[:trip_id].to_s
+		redirect_to "/trip/layout/" + params[:trip_id].to_s + "?edit=true"
 
 	end
 
@@ -122,15 +125,42 @@ class TripController < ApplicationController
 		
 		
 	end
+    
+    
+    def add_milestone
+        
+        trip = Trip.find(params[:trip_id])
+        newMilestoneIndex = params[:lastMilestone].to_i
+        newMilestoneIndex += 1
+        time = Time.new()
+        
+        for content in trip.contents
+            if content.milestone_index >= newMilestoneIndex
+                content.milestone_index = content.milestone_index + 1
+                content.save()
+            end
+        end
+        
+        day = Content.new(:date_time => time, :value => "New Day", :trip_id => trip.id, :content_type => "milestone", :milestone_index => newMilestoneIndex)
+        day.save()
+        
+        urlForRedirect = "/trip/layout/" + params[:trip_id] + "?edit=true"
+        redirect_to urlForRedirect
+        
+    end
+    
 
 	def layout
 
-		trip_id = params[:id]
+		
 
 
 		if session["user"].nil?
 			redirect_to "/splash/login"
+			return
 		end
+
+		trip_id = params[:id]
 
 		puts "current user logged in is " + session["user"].to_s
 
@@ -141,6 +171,9 @@ class TripController < ApplicationController
         temp = Array.new()
         for content in @trip.contents
             index = content.milestone_index
+            if index == nil
+                index = 0
+            end
             if temp[index] == nil
                 temp[index] = Array.new()
             end

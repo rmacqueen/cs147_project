@@ -53,6 +53,10 @@ img{
 	width:100%;
 }
 
+.movie{
+	width: 100%;
+}
+
 .side_left{
 	width:38%;
 	height:125px;
@@ -181,6 +185,7 @@ video{
 	padding-left: 5%;
 	padding-bottom: 2px;
 	padding-top: 2px;
+	contenteditable: true;
 }
 
 #page_test{
@@ -221,11 +226,12 @@ video{
 
 
 .placeholder{
-	width:84%;
-	height:100px;
+	width:54%;
+	height:70px;
 	overflow:hidden;
 	/*vertical-align:middle;*/
 	position: relative;
+	float: left;
 
 	margin-top:10px;
 	margin-bottom:10px;
@@ -238,6 +244,19 @@ video{
 	padding-right:3%;
 	
 	text-align: center;
+}
+
+.milestoneButton{
+	margin-top:10px;
+	margin-right: 5%;
+	padding-bottom:10px;
+	padding-top:10px;
+	width: 25%;
+	height:70px;
+	background-color:white;
+	float: right;
+	text-align: center;
+	font-size: smaller;
 }
 
 #photo .ui-icon { 

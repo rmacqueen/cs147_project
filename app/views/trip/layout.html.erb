@@ -8,6 +8,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
  	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 
 	<%= stylesheet_link_tag "jquery.mobile-1.2.0" %>
 	<%= stylesheet_link_tag "style" %>
@@ -27,6 +28,11 @@
 	<div data-role="header">
 		<a href="/user/home/1" class="ui-btn-left" data-ajax="false">Back</a>
 		<h1><%= @trip.name %></h1>
+		<% if params[:edit] == "true" %>
+		<a href="/trip/layout/<%= params[:id] %>" class="ui-btn-right" data-theme="b" data-ajax="false">Done</a>
+		<% else %>
+		<a href="?edit=true" class="ui-btn-right" data-theme="b" data-ajax="false">Edit Trip</a>
+		<% end %>
 
 
 	</div><!-- /header -->
@@ -35,11 +41,18 @@
 	<% lastMilestoneIndex = 0 %>
 		<% i = 0 %>
 <% for content in @all_content %>
-	<% if content.milestone_index != lastMilestoneIndex %>
-		<div class="placeholder" onclick="showEditFooter(<%= lastMilestoneIndex %>)">
-			<h3>Tap to add more</h3>
+	<% if params[:edit] == "true" && content.milestone_index != lastMilestoneIndex %>
+		<div class="newContentWrapper">
+			<div class="placeholder" onclick="showEditFooter(<%= lastMilestoneIndex %>)">
+				<h3>Tap to add more</h3>
+			</div>
+			<div class="milestoneButton" onclick="addNewMilestone(<%= lastMilestoneIndex %>)">
+				<h3>Add Milestone</h3>
+			</div>
 		</div>
-		<% lastMilestoneIndex += 1 %>
+		<% if content.milestone_index != nil
+		 lastMilestoneIndex = content.milestone_index
+		 end %>
 	<% end %>
 
 	<% if content.content_type == "milestone" %>
@@ -51,7 +64,7 @@
 
 	<% klass = "" %>
 	<% index = i % 3 %>
-	<% puts index %>
+
 	<% case index %>
 	<% when 0 %>
 		<% klass = "cover" %>
@@ -82,6 +95,13 @@
 
 	<% end %>
 
+	<% if content.content_type == "map" %>
+
+		<% coords = content.value.split("|"); %>
+
+		<%= render :partial => "map", :locals => {:lat=>coords[0], :lng => coords[1], :frame => klass} %> 
+	<% end %>
+
 	
 	<% if index == 2 %>
 		</div>
@@ -89,9 +109,17 @@
 
 	<% i+=1 %>
 <% end %>
-<div class="placeholder" onclick="showEditFooter(<%= lastMilestoneIndex %>)">
-	<h3>Tap to add more</h3>
-</div>
+
+<% if params[:edit] == "true" %>
+	<div class="newContentWrapper">
+		<div class="placeholder" onclick="showEditFooter(<%= lastMilestoneIndex %>)">
+			<h3>Tap to add more</h3>
+		</div>
+		<div class="milestoneButton" onclick="addNewMilestone(<%= lastMilestoneIndex %>)">
+			<h3>Add Milestone</h3>
+		</div>
+	</div>
+<% end %>
 
 </div><!-- /content -->
 
@@ -137,10 +165,13 @@ function getVideoFile(){
 
    document.getElementById("upfile_video").click();
  }
+ 
+ 	function addNewMilestone(lastMilestoneIndex) {
+	 	window.location = "/trip/add_milestone?trip_id=" + <%=@trip.id%> + "&lastMilestone=" + lastMilestoneIndex;
+ 	}
 
 	var bypass = false;
 
-	
 	function showEditFooter(milestoneIndex) {
 		uploadMilestoneIndex = milestoneIndex;
 		add_text_link = document.getElementById("text");
@@ -165,13 +196,19 @@ function getVideoFile(){
 	  }
 	  bypass = false;
 	}
+	
+	
+	function EditMilestoneTitle(milestoneID) {
+		console.log(milestoneID);
+	}
+	
  
 </script>
 
-	<div id="footer">
+	<div style="visibility: hidden;" onload="hideEditFooter()">
 
 
-	<div data-role="footer" data-id="samebar" class="nav-glyphish-example" data-position="fixed" data-tap-toggle="false">
+	<div id="footer" data-role="footer" data-id="samebar" class="nav-glyphish-example" data-position="fixed" data-tap-toggle="false">
 		<div data-role="navbar" class="nav-glyphish-example" data-grid="c">
 			<%= form_for :content, :html=>{:name=>"myForm", :multipart=>true, "data-ajax" => "false"}, :url => {:action => :post_add} do |form| %>
 			
@@ -196,20 +233,20 @@ function getVideoFile(){
 					
 					<!--<input id="upfile_image" type="file" value="upload" accept="image/*" capture="camera" onchange="sub(this)"/>-->
 					<script>
-					console.log("here")
+
 					  <% auth_params = Panda.signed_params('post', "/videos.json") %>
 					  jQuery("#returned_video_id").pandaUploader(<%=raw auth_params.to_json %>, {
 					    // Uncomment the line below if your panda account is in the EU
 					    // api_host: 'api-eu.pandastream.com',
 					    //upload_progress_id: 'upload_progress'
 					  });
-					  console.log("now here")
+
 					  hidden = document.getElementById("returned_video_id");
-					  console.log(hidden);
+
 					  input = hidden.nextSibling;
 					  input.setAttribute("id", "upfile_video");
 					  input.setAttribute("onchange", "submitVideo(this)");
-					  console.log(input);
+
 					</script>
 
 					<%= form.submit "Upload video", :id=>"submit_button", "data-ajax"=>"false" %>
@@ -222,8 +259,8 @@ function getVideoFile(){
 				<div style='height: 0px;width: 0px; overflow:hidden;'></div>
 
 			</li>
-			<li><a href="/trip/add?trip_id=1" id="text" data-icon="custom" >Text</a></li>
-			<li><a href="#" id="more" data-icon="custom">More</a></li>
+			<li><a href="/trip/add?trip_id=1" id="text" data-icon="custom" data-ajax="false" >Text</a></li>
+			<li><a href="#" id="more" data-icon="custom" data-ajax="false">More</a></li>
 		</ul>
 		 
 		<% end %>

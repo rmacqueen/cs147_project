@@ -35,6 +35,8 @@
 	border-style: solid;
 	border-width: 4px;
 	margin: 4px 4px 4px 4px
+	border-radius:25px;
+	box-shadow: 10px 10px 5px #888888;
 
 }
 
@@ -46,5 +48,7 @@
 	border-style: solid;
 	border-width: 4px;
 	margin: 4px 4px 4px 4px
+	border-radius:25px;
+	box-shadow: 10px 10px 5px #888888;
 	
 }
