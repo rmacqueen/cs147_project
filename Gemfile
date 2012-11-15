@@ -7,11 +7,11 @@ gem 'image_size'
 gem 'panda', '~> 1.5.0'
 gem 'typhoeus', '~> 0.2.4'
 
-gem 'pg'
 
-# group :development do
-#   gem 'sqlite3', '1.3.5'
-# end
+
+group :development do
+  gem 'sqlite3', '1.3.5'
+end
 
 #gem 'less-rails-bootstrap'
 # Gems used only for assets and not required
@@ -25,9 +25,9 @@ end
 
 gem 'jquery-rails', '2.0.2'
 
-# group :production do
-# 	gem 'pg'
-# end
+group :production do
+	gem 'pg'
+end
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
