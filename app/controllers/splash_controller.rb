@@ -49,6 +49,7 @@ class SplashController < ApplicationController
 			puts "right here"
 			@user.save
 			flash[:notice] = "Thanks #{@user.first_name}! Your account was successfully created!! Please login below:"
+			session["user"] = @user.id
 			redirect_to "/user/home"	
 		else
 			puts "ERRROORR"
