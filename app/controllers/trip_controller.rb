@@ -75,7 +75,7 @@ class TripController < ApplicationController
 			flash[:notice] = "No text or no user!"
 		end
 		
-		redirect_to "/trip/layout/" + params[:trip_id].to_s
+		redirect_to "/trip/layout/" + params[:trip_id].to_s + "?edit=true"
 
 	end
 
@@ -122,6 +122,30 @@ class TripController < ApplicationController
 		
 		
 	end
+    
+    
+    def add_milestone
+        
+        trip = Trip.find(params[:trip_id])
+        newMilestoneIndex = params[:lastMilestone].to_i
+        newMilestoneIndex += 1
+        time = Time.new()
+        
+        for content in trip.contents
+            if content.milestone_index >= newMilestoneIndex
+                content.milestone_index = content.milestone_index + 1
+                content.save()
+            end
+        end
+        
+        day = Content.new(:date_time => time, :value => "New Day", :trip_id => trip.id, :content_type => "milestone", :milestone_index => newMilestoneIndex)
+        day.save()
+        
+        urlForRedirect = "/trip/layout/" + params[:trip_id] + "?edit=true"
+        redirect_to urlForRedirect
+        
+    end
+    
 
 	def layout
 
@@ -141,6 +165,9 @@ class TripController < ApplicationController
         temp = Array.new()
         for content in @trip.contents
             index = content.milestone_index
+            if index == nil
+                index = 0
+            end
             if temp[index] == nil
                 temp[index] = Array.new()
             end
