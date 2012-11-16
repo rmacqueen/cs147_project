@@ -57,7 +57,11 @@
 
 	<% if content.content_type == "milestone" %>
 		<% firstItem = false %>
-		<h2 class="days"><%= content.value %> </h2>
+		<% if params[:edit] == "true" %>
+		<h2 class="days" id="milestone_id_<%= content.id %>"><%= content.value %><a class="editMilestoneTitle" onclick = "EditMilestoneTitle(<%= content.id %>)">edit </a> </h2>
+		<% else %>
+		<h2 class="days"><%= content.value %></h2>
+		<% end %>
 		<% i = 0 %>
 		<% next %> 
 	<% end %>
@@ -197,9 +201,37 @@ function getVideoFile(){
 	  bypass = false;
 	}
 	
+	var editingMilestoneID;
+	var storedInnerHTML;
+	
+	function ChangeMilestoneTitle(event) {
+		console.log(event.keyCode);
+		if (event.keyCode == 13) {
+			field = document.getElementById("milestoneEditor");
+			newTitle = field.value;
+			milestone = document.getElementById("milestone_id_" + editingMilestoneID);
+			oldTitle = milestone.innerHTML.split('<');
+			temp = newTitle + '<' + oldTitle[1];
+			milestone.innerHTML = temp;
+			field.parentNode.removeChild(field);
+		}
+	}
+	
 	
 	function EditMilestoneTitle(milestoneID) {
 		console.log(milestoneID);
+		editingMilestoneID = milestoneID;
+		milestone = document.getElementById("milestone_id_" + milestoneID);
+		storedInnerHTML = milestone.innerHTML;
+		currentTitle = milestone.innerHTML.split('<');
+		editField = document.createElement("input");
+		editField.type = 'text';
+		editField.id = 'milestoneEditor';
+		editField.value = currentTitle[0];
+		editField.onkeypress = function ChangeMilestoneTitle(event);
+		editField.style = 'height: 20px; width: 250px; position:relative; top: -5px;';
+		milestone.innerHTML = "";
+		milestone.appendChild(editField);
 	}
 	
  

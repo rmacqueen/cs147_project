@@ -246,6 +246,12 @@ video{
 	text-align: center;
 }
 
+.editMilestoneTitle{
+	position: relative;
+	background-color: white;
+	margin-left: 10px;
+}
+
 .milestoneButton{
 	margin-top:10px;
 	margin-right: 5%;
