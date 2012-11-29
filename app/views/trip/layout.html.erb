@@ -170,26 +170,26 @@ function getVideoFile(){
    document.getElementById("upfile_video").click();
  }
  
- 	function addNewMilestone(lastMilestoneIndex) {
-	 	window.location = "/trip/add_milestone?trip_id=" + <%=@trip.id%> + "&lastMilestone=" + lastMilestoneIndex;
- 	}
+//  function addNewMilestone(lastMilestoneIndex) {
+// 	 window.location = "/trip/add_milestone?trip_id=" + <%=@trip.id%> + "&lastMilestone=" + lastMilestoneIndex;
+//  }
 
-	var bypass = false;
+// var bypass = false;
 
-	function showEditFooter(milestoneIndex) {
-		uploadMilestoneIndex = milestoneIndex;
-		add_text_link = document.getElementById("text");
+function showEditFooter(milestoneIndex) {
+	uploadMilestoneIndex = milestoneIndex;
+	add_text_link = document.getElementById("text");
 
-		var base = "/trip/add?trip_id=" + <%=@trip.id%>;
+	var base = "/trip/add?trip_id=" + <%=@trip.id%>;
 
-		add_text_link.href = base + "&index=" + uploadMilestoneIndex; 
+	add_text_link.href = base + "&index=" + uploadMilestoneIndex; 
 
-	  footer = document.getElementById("footer");
-	  if (footer.style.visibility == "hidden" || footer.style.visibility == "") {
-		  footer.style.visibility = "visible";
-		  bypass = true;
-	  } 
-	}
+	footer = document.getElementById("footer");
+	if (footer.style.visibility == "hidden" || footer.style.visibility == "") {
+		footer.style.visibility = "visible";
+		bypass = true;
+	} 
+}
 	
 	function hideEditFooter() {
 
@@ -205,7 +205,9 @@ function getVideoFile(){
 	var storedInnerHTML;
 	
 	function ChangeMilestoneTitle(event) {
+		console.log("in change milestone");
 		console.log(event.keyCode);
+
 		if (event.keyCode == 13) {
 			field = document.getElementById("milestoneEditor");
 			newTitle = field.value;
@@ -219,16 +221,17 @@ function getVideoFile(){
 	
 	
 	function EditMilestoneTitle(milestoneID) {
-		console.log(milestoneID);
+		console.log("milestone id: " + milestoneID);
 		editingMilestoneID = milestoneID;
 		milestone = document.getElementById("milestone_id_" + milestoneID);
 		storedInnerHTML = milestone.innerHTML;
 		currentTitle = milestone.innerHTML.split('<');
+		console.log("current: " + currentTitle);
 		editField = document.createElement("input");
 		editField.type = 'text';
 		editField.id = 'milestoneEditor';
 		editField.value = currentTitle[0];
-		editField.onkeypress = function ChangeMilestoneTitle(event);
+		editField.onkeypress = ChangeMilestoneTitle(event);
 		editField.style = 'height: 20px; width: 250px; position:relative; top: -5px;';
 		milestone.innerHTML = "";
 		milestone.appendChild(editField);
