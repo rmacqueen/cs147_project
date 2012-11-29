@@ -22,7 +22,7 @@ class TripController < ApplicationController
 
 	end
 
-	 def show
+	def show
 	 	puts "videos"
 	    videos = Content.find_all_by_content_type("video")
 	    video = videos[0]
@@ -30,7 +30,13 @@ class TripController < ApplicationController
 	    @h264_encoding = @original_video.encodings["h264"]
 	    
 	    
- 	 end
+ 	end
+
+ 	def sanitize_filename(file_name)
+      	file_name.sub(/[^\w\.\-]/,'_')
+    end
+
+    @@BUCKET = ""
 
 	def post_add
 
@@ -53,12 +59,17 @@ class TripController < ApplicationController
 				
 				media_object = params[:content][content_type]
 
-				media_name = media_object.original_filename + trip.contents.length.to_s
+				media_name = user.last_name + trip.contents.length.to_s
 
-				directory = "app/assets/images/"
-				path = File.join(directory, media_name)
-				File.open(path, "wb") { |f| f.write(media_object.read) }
-				value = media_name
+  				filename = sanitize_filename(media_name)
+
+  				AWS::S3::S3Object.store(filename, media_object.read, @@BUCKET, :access => :public_read)
+
+  				url = AWS::S3::S3Object.url_for(filename, @@BUCKET, :authenticated => false)
+				# directory = "app/assets/images/"
+				# path = File.join(directory, media_name)
+				# File.open(path, "wb") { |f| f.write(media_object.read) }
+				value = url
 			elsif content_type == "text"
 				puts "saving text"
 				value = params[:content][:blog]
@@ -78,7 +89,7 @@ class TripController < ApplicationController
 			flash[:notice] = "No text or no user!"
 		end
 		
-		redirect_to "/trip/layout/" + params[:trip_id].to_s + "?edit=true"
+		redirect_to "/trip/layout/" + params[:trip_id].to_s
 
 	end
 
@@ -125,30 +136,6 @@ class TripController < ApplicationController
 		
 		
 	end
-    
-    
-    def add_milestone
-        
-        trip = Trip.find(params[:trip_id])
-        newMilestoneIndex = params[:lastMilestone].to_i
-        newMilestoneIndex += 1
-        time = Time.new()
-        
-        for content in trip.contents
-            if content.milestone_index >= newMilestoneIndex
-                content.milestone_index = content.milestone_index + 1
-                content.save()
-            end
-        end
-        
-        day = Content.new(:date_time => time, :value => "New Day", :trip_id => trip.id, :content_type => "milestone", :milestone_index => newMilestoneIndex)
-        day.save()
-        
-        urlForRedirect = "/trip/layout/" + params[:trip_id] + "?edit=true"
-        redirect_to urlForRedirect
-        
-    end
-    
 
 	def layout
 
@@ -171,9 +158,6 @@ class TripController < ApplicationController
         temp = Array.new()
         for content in @trip.contents
             index = content.milestone_index
-            if index == nil
-                index = 0
-            end
             if temp[index] == nil
                 temp[index] = Array.new()
             end

@@ -4,7 +4,7 @@
 /* Home page */
 
 #container {
-	width:580px;
+	width:350px;
 	padding:0px;
 	margin:0 auto;
 	position:relative;
@@ -12,7 +12,7 @@
 }
 
 #products_example {
-	width:500px;
+	width:350px;
 	height:282px;
 	position:relative;
 }
@@ -33,7 +33,7 @@
 */
 
 #products .slides_container {
-	width:366px;
+	width:300px;
 	overflow:hidden;
 	float:center;
 	position:relative;
@@ -72,13 +72,36 @@
 }
 
 #products .prev {
-	left:10px;
+	left:-20px;
 	background:url(/images/arrow-prev.png);
 }
 
 #products .next {
-	left:340px;
+	left:300px;
 	background:url(/images/arrow-next.png);
+}
+
+.slides_container div.slide {
+	width:570px;
+	height:270px;
+	display:block;
+}
+
+.caption {
+	z-index:500;
+	position:absolute;
+	bottom:-35px;
+	left:0;
+	height:35px;
+	padding:5px 20px 0 20px;
+	background:#000;
+	background:rgba(0,0,0,.5);
+	width:540px;
+	font-size:1.3em;
+	line-height:0;
+	color:#fff;
+	border-top:1px solid #000;
+	text-shadow:none;
 }
 
 /*
@@ -114,4 +137,11 @@
 #products .pagination li.current a {
 	border:1px solid #7f7f7f;
 	margin:0;
+}
+
+.caption a{
+	/*width:20px;
+	height:20px;*/
+	background:url(/images/delete.png);
+	float:right;
 }

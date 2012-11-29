@@ -24,7 +24,7 @@ class SplashController < ApplicationController
 				puts "password OK"
 				session["user"] = user.id
 				puts session["user"]
-				redirect_to(:controller => :user, :action => :home_alt, :id => user.id)
+				redirect_to(:controller => :user, :action => :home, :id => user.id)
 			else
 				flash[:notice] = "Sorry, that username password combination is incorrect - please try again"
 				redirect_to :action => :login
@@ -46,11 +46,11 @@ class SplashController < ApplicationController
 		@user.password = params[:password]
 
 		if @user.valid?
-			puts "right here"
 			@user.save
-			flash[:notice] = "Thanks #{@user.first_name}! Your account was successfully created!! Please login below:"
+			trip = Trip.new(:name => "New Trip", :user_id => @user.id, :cover_photo => "stock.jpg")
+    		trip.save()
 			session["user"] = @user.id
-			redirect_to "/user/home_alt"	
+			redirect_to "/user/home/" + @user.id.to_s	
 		else
 			puts "ERRROORR"
 			flash[:notice] = @user.errors.full_messages

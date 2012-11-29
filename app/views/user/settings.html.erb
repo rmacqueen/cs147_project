@@ -9,8 +9,8 @@
  	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<%= stylesheet_link_tag "jquery.mobile-1.2.0" %>
-	<%= stylesheet_link_tag "style" %>
-	<%= stylesheet_link_tag "trip_style" %>
+	<%= stylesheet_link_tag "settings" %>
+
     
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
     <%= javascript_include_tag "jquery-1.8.2.min.js" %>
@@ -26,9 +26,8 @@
 <div data-role="page">
 
 	<div data-role="header">
-		<a href="#" class="ui-btn-left">Settings</a>
+		<a href=<%="/user/home/" + @user.id.to_s %> class="ui-btn-left" data-ajax="false">Home</a>
 		<h1>Tripselektor</h1>
-		<a href="/trip/new_trip" class="ui-btn-right" data-ajax="false">New Trip</a>
 	</div><!-- /header -->
 
 	<div data-role="content">
@@ -38,7 +37,7 @@
 		<h3>Last Name: <%=@user.last_name%></h3>
 		<h3>Email: <%=@user.email%></h3></br>
 		
-		<form action="/user/logout">
+		<form action="/user/logout" data-ajax="false">
 			<input type="submit" value="Logout" />
 		</form>
 

@@ -10,11 +10,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<%= stylesheet_link_tag "jquery.mobile-1.2.0" %>
 	<%= stylesheet_link_tag "style" %>
-	<%= stylesheet_link_tag "trip_style" %>
+	<%= stylesheet_link_tag "popover" %>
+
     
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
     <%= javascript_include_tag "jquery-1.8.2.min.js" %>
     <%= javascript_include_tag "jquery.mobile-1.2.0.js" %>
+    <%= javascript_include_tag "popover.js" %>
     
 
     <%= javascript_include_tag "slides.min.jquery.js" %>
@@ -22,6 +24,37 @@
 
 </head> 
 <body> 
+
+	<div id="my-popover">
+  <div class="header">
+  	<h3>Change Trip</h3>
+  </div>
+  <div class="content">
+  	<p> <a data-ajax="false" id="delete_link" href="#">Delete Trip</a> </p>
+  	<%= form_for :content, :html=>{:name=>"myForm", :multipart=>true, "data-ajax" => "false"}, :url => {:action => :change_cover} do |form| %>
+  	<p> <a data-ajax="false" id="change_cover_link" href="#" onclick="getImageFile()">Change Cover Photo</a> </p>
+
+  	<div style='height: 0px;width: 0px; overflow:hidden;'>
+  		<%= form.text_field :trip_id, :id=>"cover_trip_id" %>
+  		<%= form.file_field :image, :accepts=>"image/*", :id=>"upfile_image", :onchange=>"submitForm(this, \"image\")" %>
+
+  	</div>
+
+  	<% end %>
+  </div>
+</div>
+
+<script>
+	current_slide = 1;
+
+	function getImageFile(){
+		console.log("Getting an image");
+		document.getElementById("upfile_image").click();
+ 	}
+ 	function submitForm(){
+ 		document.myForm.submit();
+ 	}
+</script>
 
 <div data-role="page">
 
@@ -35,17 +68,43 @@
 		<h2> Here are your trips! </h2>
 
 	<script>
+	 function changeSlides(play){
 		$(function(){
 			console.log("hello")
 			$('#products').slides({
 				preload: true,
 				preloadImage: '/images/loading.gif',
+				play: play,
+				pause: 2500,
+				hoverPause: true,
 				effect: 'slide, fade',
 				crossfade: true,
 				slideSpeed: 350,
 				fadeSpeed: 500,
 				generateNextPrev: true,
 				generatePagination: false,
+
+				animationStart: function(current){
+					$('.caption').animate({
+						bottom:-35
+					},100);
+					if (window.console && console.log) {
+						// example return of current slide number
+
+						console.log('animationStart on slide: ', current);
+
+					};
+				},
+				animationComplete: function(current){
+					$('.caption').animate({
+						bottom:0
+					},200);
+					if (window.console && console.log) {
+						// example return of current slide number
+						console.log('animationComplete on slide: ', current);
+						current_slide = current;
+					};
+				},
 				slidesLoaded: function() {
 					$('.caption').animate({
 						bottom:0
@@ -53,17 +112,30 @@
 				}
 			});
 		});
+}
 	</script>
+
 		<div id="container">
+			<a id="my-button" onclick="stopSlides()">Edit Trip</a>
 		<div id="products_example">
 			<div id="products">
+				<!--<a href="#" class="delete">D</a>-->
 				<div class="slides_container" data-ajax="false">
+					<% i = 1 %>
 					<% for trip in @trips %>
-					<% link = "/trip/layout/" + trip.id.to_s %>
-					<a data-ajax="false" href=<%=link%>> <%= image_tag trip.cover_photo, :width=>366, :alt=>"sdf" %></a>
+					<div id=<%= "slide"+ i.to_s %> class="slide" trip-id=<%=trip.id %> >
+						<% link = "/trip/layout/" + trip.id.to_s %>
+
+						<a data-ajax="false" href=<%=link%>> <%= image_tag trip.cover_photo, :width=>"100%", :alt=>"sdf" %></a>
+						<div class="caption" style="bottom:0">
+							<p><%= trip.name %> </p>
+						</div>
+					</div>
+					<% i += 1 %>
 					<% end %>
 
 				</div>
+
 				<ul class="pagination">
 					<% for trip in @trips %>
 					<li><a href="#"><%= image_tag trip.cover_photo, :width=>55, :alt=>"sdf" %></a></li>
@@ -74,6 +146,29 @@
 		</div>
 	</div><!-- /content -->
 </div><!-- /page -->
+<script>
+$('#my-button').popover({header: '#my-popover > .header',
+    content: '#my-popover > .content'});
+
+function stopSlides(){
+	//$('#products').stop();
+	console.log("here");
+   	$(".slide").trigger("mouseover");
+   	console.log(current_slide);
+   	elem = document.getElementById("slide" + current_slide);
+   	console.log(elem);
+   	delete_link = document.getElementById("delete_link");
+   	delete_link.href = "/user/delete_trip?trip_id=" + elem.getAttribute("trip-id");
+   	change_cover_link = document.getElementById("change_cover_link");
+
+   	document.getElementById("cover_trip_id").value = elem.getAttribute("trip-id");
+   	//change_cover_link.href = "/user/change_trip_cover?trip_id=" + elem.getAttribute("trip-id");
+}
+
+changeSlides(3000);
+
+</script>
+
 
 </body>
 </html>
