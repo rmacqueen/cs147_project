@@ -44,7 +44,7 @@ class TripController < ApplicationController
 			puts "saving content"
 			content_type = params[:content][:content_type]
 			value = ""
-
+			other = ""
 			if content_type == "video"
 				puts "saving a video"
 				value = params["video"]["panda_video_id"]
@@ -63,6 +63,7 @@ class TripController < ApplicationController
 			elsif content_type == "text"
 				puts "saving text"
 				value = params[:content][:blog]
+				other = params[:content][:blog_subject]
 				latlng = params[:content][:latlng]
 				city_name = params[:content][:city_name]
 				Content.save_content("map", latlng, params[:trip_id], params[:content][:milestone_index], city_name);
@@ -71,7 +72,7 @@ class TripController < ApplicationController
 
 			end
 			puts "value is " + value 
-			content = Content.save_content(content_type, value, params[:trip_id], params[:content][:milestone_index], "")
+			content = Content.save_content(content_type, value, params[:trip_id], params[:content][:milestone_index], other)
 
 			if content_type == "video"
 				start = Time.new

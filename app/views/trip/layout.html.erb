@@ -115,6 +115,8 @@
 
 		<% coords = content.value.split("|"); %>
 
+		<% puts coords %>
+
 		<%= render :partial => "map", :locals => {:lat=>coords[0], :lng => coords[1], :frame => klass} %> 
 	<% end %>
 
