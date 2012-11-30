@@ -164,6 +164,17 @@ class TripController < ApplicationController
         
     end
     
+    
+    def changeMilestoneName
+        puts "HERE"
+        puts session["user"];
+        trip = Trip.find(params[:id])
+        milestone = trip.contents.find(params[:milestone])
+        milestone.value = params[:newTitle]
+        milestone.save()
+        render :nothing => true
+    end
+    
 
 	def layout
 
@@ -172,12 +183,12 @@ class TripController < ApplicationController
 			return
 		end
 
-		trip_id = params[:id]
+		@trip_id = params[:id]
 
 		puts "current user logged in is " + session["user"].to_s
 
 		@user = User.find(session["user"])
-		@trip = Trip.find(trip_id)
+		@trip = Trip.find(@trip_id)
 
         
         temp = Array.new()
