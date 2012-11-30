@@ -49,6 +49,7 @@ class TripController < ApplicationController
 				puts "saving a video"
 				value = params["video"]["panda_video_id"]
 
+
 			elsif content_type == "image"
 				
 				media_object = params[:content][content_type]
@@ -70,7 +71,20 @@ class TripController < ApplicationController
 
 			end
 			puts "value is " + value 
-			Content.save_content(content_type, value, params[:trip_id], params[:content][:milestone_index], "")
+			content = Content.save_content(content_type, value, params[:trip_id], params[:content][:milestone_index], "")
+
+			if content_type == "video"
+				start = Time.new
+				while true 
+					video = Content.find(content.id)
+					original_video = content.panda_video
+	        	 	h264_encoding = original_video.encodings["h264"]
+        	 	
+        	 		if h264_encoding.success? || Time.new.to_i - start.to_i > 20
+        	 			break
+        	 		end
+        	 	end
+			end
 
 			flash[:notice] = "Media successfully uploaded!"
 			
@@ -152,9 +166,6 @@ class TripController < ApplicationController
 
 	def layout
 
-		
-
-
 		if session["user"].nil?
 			redirect_to "/splash/login"
 			return
@@ -170,6 +181,15 @@ class TripController < ApplicationController
         
         temp = Array.new()
         for content in @trip.contents
+
+        	# if content.content_type == "video"
+        	# 	original_video = content.panda_video
+        	# 	h264_encoding = original_video.encodings["h264"]
+        	# 	content.other = h264_encoding.url
+        	# 	puts "in controller"
+        	# 	puts content.other
+        	# end
+
             index = content.milestone_index
             if index == nil
                 index = 0

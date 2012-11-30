@@ -38,6 +38,16 @@
 	</div><!-- /header -->
 
 	<div data-role="content" id="page_test" onclick="hideEditFooter()">
+
+
+		<a style="display:none" href="#popupBasic" data-rel="popup" data-overlay-theme="a" data-theme="c" data-shadow="true" data-iconshadow="true" data-position-to="window" id="popup">Open Popup</a>
+
+		<div data-role="popup" id="popupBasic">
+  			<p>Please wait while we upload your video...<p>
+  			<%= image_tag "loading.gif", :width=>20 %>
+		</div>
+
+
 	<% lastMilestoneIndex = 0 %>
 		<% i = 0 %>
 <% for content in @all_content %>
@@ -93,9 +103,11 @@
 
 
 	<% if content.content_type == "video" %>
+
 		<% original_video = content.panda_video %>
 	    <% h264_encoding = original_video.encodings["h264"] %>
-		<%= render :partial => "video", :locals => {:h264_encoding => h264_encoding, :frame => klass} %>
+	    	
+		<%= render :partial => "video", :locals => {:h264_encoding => h264_encoding, :frame => klass, :url=>content.other} %>
 
 	<% end %>
 
@@ -151,6 +163,7 @@ function submitVideo(obj){
 	field.value = "video";
 	sub = document.getElementById("submit_button");
 	sub.click();
+	document.getElementById("popup").click();
 	//document.myForm.submit();
 //	event.preventDefault();
 }
@@ -237,7 +250,6 @@ function showEditFooter(milestoneIndex) {
 		milestone.appendChild(editField);
 	}
 	
- 
 </script>
 
 	<div style="visibility: hidden;" onload="hideEditFooter()">
@@ -273,7 +285,7 @@ function showEditFooter(milestoneIndex) {
 					  jQuery("#returned_video_id").pandaUploader(<%=raw auth_params.to_json %>, {
 					    // Uncomment the line below if your panda account is in the EU
 					    // api_host: 'api-eu.pandastream.com',
-					    //upload_progress_id: 'upload_progress'
+					     upload_progress_id: 'upload_progress'
 					  });
 
 					  hidden = document.getElementById("returned_video_id");
