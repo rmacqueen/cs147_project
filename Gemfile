@@ -7,11 +7,13 @@ gem 'image_size'
 gem 'panda', '~> 1.5.0'
 gem 'typhoeus', '~> 0.2.4'
 
+gem 'aws-s3', '0.6.2', :require => 'aws/s3'
 
+# group :development do
+#   gem 'sqlite3', '1.3.5'
+# end
 
-group :development do
-  gem 'sqlite3', '1.3.5'
-end
+gem 'sqlite3', '1.3.5'
 
 #gem 'less-rails-bootstrap'
 # Gems used only for assets and not required
