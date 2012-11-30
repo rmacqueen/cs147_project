@@ -68,7 +68,7 @@
 	<% if content.content_type == "milestone" %>
 		<% firstItem = false %>
 		<% if params[:edit] == "true" %>
-		<h2 class="days" id="milestone_id_<%= content.id %>"><%= content.value %><a class="editMilestoneTitle" onclick = "EditMilestoneTitle(<%= content.id %>)">edit </a> </h2>
+		<h2 class="days" id="milestone_id_<%= content.id %>"><%= content.value %> – <a class="editMilestoneTitle" onclick = "EditMilestoneTitle(<%= content.id %>)">edit </a> </h2>
 		<% else %>
 		<h2 class="days"><%= content.value %></h2>
 		<% end %>
@@ -215,7 +215,6 @@ function showEditFooter(milestoneIndex) {
 	}
 	
 	var editingMilestoneID;
-	var storedInnerHTML;
 	
 	function getCookie(name) {
         var cookieValue = null;
@@ -233,42 +232,56 @@ function showEditFooter(milestoneIndex) {
         return cookieValue;
     }
 	
-	function ChangeMilestoneTitle(evt) {
+	function ChangeMilestoneTitleWrapper(evt) {
+		console.log(evt);
 		if (event.keyCode == 13) {
-			field = document.getElementById("milestoneEditor");
-			newTitle = field.value;
-			milestone = document.getElementById("milestone_id_" + editingMilestoneID);
-			milestone.removeChild(field);
-			oldTitle = milestone.innerHTML.split('<');
-			temp = newTitle + '<a class="editMilestoneTitle ui-link" onclick = "EditMilestoneTitle(' + editingMilestoneID + ')">edit </a> </h2>';
-			milestone.innerHTML = temp;
-			xhr = new XMLHttpRequest();
-			//xhr.onreadystatechange = xhrHandler;
-			console.log(<%= @trip_id %>);
-			url = '/trip/changeMilestoneName/' + <%= @trip_id %> + '?milestone=' + editingMilestoneID + '&newTitle=' + newTitle;
-			console.log(url);
-			xhr.open("POST", url, true);
-			xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-			xhr.send("");
+			ChangeMilestoneTitle();
 		}
 	}
 	
 	
+	function ChangeMilestoneTitle() {
+		field = document.getElementById("milestoneEditor");
+		newTitle = field.value;
+		milestone = document.getElementById("milestone_id_" + editingMilestoneID);
+		milestone.removeChild(field);
+		oldTitle = milestone.innerHTML.split('<');
+		temp = newTitle + ' – <a class="editMilestoneTitle ui-link" onclick = "EditMilestoneTitle(' + editingMilestoneID + ')">edit </a> </h2>';
+		milestone.innerHTML = temp;
+		xhr = new XMLHttpRequest();
+		//xhr.onreadystatechange = xhrHandler;
+		console.log(<%= @trip_id %>);
+		url = '/trip/changeMilestoneName/' + <%= @trip_id %> + '?milestone=' + editingMilestoneID + '&newTitle=' + newTitle;
+		console.log(url);
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+		xhr.send("");
+	}
+	
+	
 	function EditMilestoneTitle(milestoneID) {
-		console.log("milestone id: " + milestoneID);
 		editingMilestoneID = milestoneID;
 		milestone = document.getElementById("milestone_id_" + milestoneID);
-		storedInnerHTML = milestone.innerHTML;
 		currentTitle = milestone.innerHTML.split('<');
-		console.log("current: " + currentTitle);
+		
 		editField = document.createElement("input");
 		editField.type = 'text';
 		editField.id = 'milestoneEditor';
-		editField.value = currentTitle[0];
-		editField.onkeypress = ChangeMilestoneTitle;
+		editField.value = currentTitle[0].substring(0, currentTitle[0].length - 3);
+		editField.onkeypress = ChangeMilestoneTitleWrapper;
 		editField.style = 'height: 20px; width: 250px; position:relative; top: -5px;';
 		milestone.innerHTML = "";
 		milestone.appendChild(editField);
+		
+		dash = document.createElement("a");
+		dash.innerHTML = " – ";
+		milestone.appendChild(dash);
+		
+		saveButton = document.createElement("a");
+		saveButton.className = 'editMilestoneTitle ui-link';
+		saveButton.onclick = ChangeMilestoneTitle;
+		saveButton.innerHTML = "save";
+		milestone.appendChild(saveButton);
 	}
 	
 </script>
