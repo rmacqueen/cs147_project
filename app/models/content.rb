@@ -24,6 +24,7 @@ class Content < ActiveRecord::Base
 
 
 		content.save()
+		return content
 	end
 
 	def panda_video

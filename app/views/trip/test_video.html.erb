@@ -1,0 +1,72 @@
+
+<!DOCTYPE html> 
+<html>
+
+<head>
+  <title>Test Video</title> 
+
+  <%= stylesheet_link_tag "jquery.mobile-1.2.0" %>
+  
+  <%= javascript_include_tag "jquery-1.8.2.min.js" %>
+    <%= javascript_include_tag "jquery.mobile-1.2.0.js" %>
+
+
+    <%= javascript_include_tag 'http://cdn.pandastream.com/u/1.4/jquery.panda-uploader.min.js' %>
+
+</head> 
+<body>
+
+<div data-role="page">
+
+<a href="#popupBasic" data-rel="popup" data-overlay-theme="a" data-theme="c" data-shadow="true" data-iconshadow="true" data-position-to="window" id="popup">Open Popup</a>
+
+<div data-role="popup" id="popupBasic">
+  <p>This is a completely basic popup, no options set.<p>
+    <div id="upload_progress" class="panda_upload_progress"></div>
+</div>
+
+
+	<%= form_for :content do |f| %>
+  <p>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </p>
+
+  <!-- the control will appear next to this, and the video ID will be stored here after the upload -->
+  <input type="hidden" name="video[panda_video_id]" id="returned_video_id" onchange="console.log(\"hello\")" />
+
+  <!-- upload progress bar (optional) -->
+  
+
+
+  <%= f.submit "Upload video", :onclick=>"sub()", :id=>"submit_button" %>
+<% end %>
+
+<script>
+  
+   function sub(){
+     console.log("sasdsdf");
+     document.getElementById("popup").click();
+   }
+  
+	console.log("here");
+  <% auth_params = Panda.signed_params('post', "/videos.json") %>
+  jQuery("#returned_video_id").pandaUploader(<%=raw auth_params.to_json %>, {
+    // Uncomment the line below if your panda account is in the EU
+    // api_host: 'api-eu.pandastream.com',
+    upload_progress_id: 'upload_progress'
+
+  });
+  console.log("now here");
+
+  hidden = document.getElementById("returned_video_id");
+  console.log(hidden);
+  input = hidden.nextSibling;
+  input.setAttribute("id", "upfile_video");
+  console.log(input);
+  document.getElementById("submit_button").disabled = false;
+</script>
+</div>
+
+</body>
+</html>
