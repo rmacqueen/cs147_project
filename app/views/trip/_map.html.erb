@@ -1,33 +1,8 @@
-<div class=<%=frame%> id="map_wrapper">
+<div class=<%=frame%> id=<%="map_wrapper_" + content_id.to_s %>>
 
 <script>
-function success(position) {
- 
-  var mapcanvas = document.createElement('div');
-  mapcanvas.id = 'mapcanvas';
-  mapcanvas.style.height = '200px';
-  mapcanvas.style.width = '100%';
- 
-  //document.querySelector('article').appendChild(mapcanvas);
-  document.getElementById("map_wrapper").appendChild(mapcanvas);
-  var latlng = new google.maps.LatLng(<%=lat.to_f%>, <%=lng.to_f%>);
 
-  var myOptions = {
-    zoom: 10,
-    center: latlng,
-    mapTypeControl: false,
-    navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  };
-  var map = new google.maps.Map(document.getElementById("mapcanvas"), myOptions);
- 
-  var marker = new google.maps.Marker({
-      position: latlng,
-      map: map,
-      title:"You are here!"
-  });
-}
- success(0);
+ map_display(<%=content_id%>, <%=lat.to_f%>, <%=lng.to_f%>);
 
  
 </script>

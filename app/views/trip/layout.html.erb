@@ -14,6 +14,7 @@
 	<%= stylesheet_link_tag "style" %>
 	<%= stylesheet_link_tag "trip_style" %>
 	
+	<%= javascript_include_tag "helpers.js" %>
 	<%= javascript_include_tag "jquery-1.8.2.min.js" %>
     <%= javascript_include_tag "jquery.mobile-1.2.0.js" %>
 
@@ -31,7 +32,7 @@
 		<% if params[:edit] == "true" %>
 		<a href="/trip/layout/<%= params[:id] %>" class="ui-btn-right" data-theme="b" data-ajax="false">Done</a>
 		<% else %>
-		<a href="?edit=true" class="ui-btn-right" data-theme="b" data-ajax="false">Edit Trip</a>
+		<a href="/trip/layout/<%=@trip.id%>?edit=true" class="ui-btn-right" data-theme="b" data-ajax="false">Edit Trip</a>
 		<% end %>
 
 
@@ -96,8 +97,8 @@
 
 
 	<% if content.content_type == "text" %>
-
-		<%= render :partial => "text", :locals => {:headline => content.other, :content => content.value, :frame => klass} %>
+		 
+		<%= render :partial => "text", :locals => {:content_id => content.id, :headline => content.other, :content => content.value, :frame => klass, :trip_id => params[:id]} %>
 
 	<% end %>
 
@@ -117,7 +118,7 @@
 
 		<% puts coords %>
 
-		<%= render :partial => "map", :locals => {:lat=>coords[0], :lng => coords[1], :frame => klass} %> 
+		<%= render :partial => "map", :locals => {:content_id=> content.id, :lat=>coords[0], :lng => coords[1], :frame => klass} %> 
 	<% end %>
 
 	
