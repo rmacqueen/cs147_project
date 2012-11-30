@@ -262,6 +262,11 @@ video{
 	font-size: smaller;
 }
 
+.journal_text{
+	font-size: 200%;
+	word-wrap:break-word;
+}
+
 #photo .ui-icon { 
 	background:  url(res/icon_photo1.png) 50% 50% no-repeat;  
 	background-size: 20px 20px; 
