@@ -30,17 +30,20 @@
   	<h3>Change Trip</h3>
   </div>
   <div class="content">
-  	<p> <a data-ajax="false" id="delete_link" href="#">Delete Trip</a> </p>
+    <p> <a data-ajax="false" id="rename_link" href="#" onclick="editTripName()">Rename</a> </p>
+    
   	<%= form_for :content, :html=>{:name=>"myForm", :multipart=>true, "data-ajax" => "false"}, :url => {:action => :change_cover} do |form| %>
   	<p> <a data-ajax="false" id="change_cover_link" href="#" onclick="getImageFile()">Change Cover Photo</a> </p>
 
-  	<div style='height: 0px;width: 0px; overflow:hidden;'>
+  	<div style='height: 0px;width: 0px; overflow:hidden; visibility:hidden'>
   		<%= form.text_field :trip_id, :id=>"cover_trip_id" %>
   		<%= form.file_field :image, :accepts=>"image/*", :id=>"upfile_image", :onchange=>"submitForm(this, \"image\")" %>
 
   	</div>
 
   	<% end %>
+  	
+  	<p> <a data-ajax="false" id="delete_link" href="#">Delete Trip</a> </p>
   </div>
 </div>
 
@@ -128,7 +131,7 @@
 
 						<a data-ajax="false" href=<%=link%>> <%= image_tag trip.cover_photo, :width=>"100%", :alt=>"sdf" %></a>
 						<div class="caption" style="bottom:0">
-							<p><%= trip.name %> </p>
+							<p id="caption_<%= i %>"><%= trip.name %> </p>
 						</div>
 					</div>
 					<% i += 1 %>
@@ -149,19 +152,98 @@
 <script>
 $('#my-button').popover({header: '#my-popover > .header',
     content: '#my-popover > .content'});
+    
 
+var currentTripID = 0;
+var editModeActive = false;
+
+
+function ChangeTripTitleWrapper(evt) {
+	if (event.keyCode == 13) {
+			ChangeTripTitle();
+	}
+}
+
+
+function restoreRenameToPopover() {
+	editModeActive = false;
+	
+	container = document.getElementById("rename_link");
+	container.innerHTML = "Rename";
+}
+
+
+function ChangeTripTitle() {
+	editModeActive = false;
+	
+	field = document.getElementById("renameField");
+	newTitle = field.value;
+	container = document.getElementById("rename_link");
+	container.innerHTML = "Rename";
+	
+	captionID = currentTripID;
+	captionIDString = "caption_" + captionID;
+	caption = document.getElementById(captionIDString);
+	caption.innerHTML = newTitle;
+	
+	xhr = new XMLHttpRequest();
+	//xhr.onreadystatechange = xhrHandler;
+	url = '/user/changeTripName?tripID=' + captionID + '&newTitle=' + newTitle;
+	console.log(url);
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+	xhr.send("");
+}
+
+
+function editTripName() {
+	if (!editModeActive) {
+		editModeActive = true;
+	
+		container = document.getElementById("rename_link");
+		container.innerHTML = "";
+		captionID = currentTripID;
+		console.log("captionID: " + captionID);
+		captionIDString = "caption_" + captionID;
+		caption = document.getElementById(captionIDString);
+		console.log(captionIDString);
+	
+		editField = document.createElement("input");
+		editField.type = 'text';
+		editField.id = 'renameField';
+		editField.value = caption.innerHTML;
+		editField.onkeypress = ChangeTripTitleWrapper;
+		editField.style = 'height: 20px; width: 250px; position:relative; top: -5px;';
+		container.appendChild(editField);
+	
+		saveButton = document.createElement("a");
+		saveButton.className = 'ui-link';
+		saveButton.onclick = ChangeTripTitle;
+		saveButton.innerHTML = "save";
+		container.appendChild(saveButton);
+	}
+}    
+    
 function stopSlides(){
 	//$('#products').stop();
 	console.log("here");
    	$(".slide").trigger("mouseover");
    	console.log(current_slide);
    	elem = document.getElementById("slide" + current_slide);
-   	console.log(elem);
+   	
+   	tripID = elem.getAttribute("trip-id");
+   	
    	delete_link = document.getElementById("delete_link");
-   	delete_link.href = "/user/delete_trip?trip_id=" + elem.getAttribute("trip-id");
+   	delete_link.href = "/user/delete_trip?trip_id=" + tripID;
+   	
+   	if (current_slide != currentTripID) restoreRenameToPopover();
+   	
+   	currentTripID = current_slide;
+   	
    	change_cover_link = document.getElementById("change_cover_link");
 
    	document.getElementById("cover_trip_id").value = elem.getAttribute("trip-id");
+   	
    	//change_cover_link.href = "/user/change_trip_cover?trip_id=" + elem.getAttribute("trip-id");
 }
 

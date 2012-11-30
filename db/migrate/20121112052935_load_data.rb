@@ -308,9 +308,19 @@ class LoadData < ActiveRecord::Migration
 
     trip1 = Trip.new(:name => "Coachella 2011", :user_id => 1, :cover_photo => "slide_1.jpg")
     trip1.save()
+      
+      ##Day 1##
+      day3 = Content.new(:date_time => "2011-04-19 10:44:23",
+                         :value => "Day 1", :trip_id => 2, :content_type => "milestone", :milestone_index => 0)
+      day3.save()
  
     trip2 = Trip.new(:name => "Eurotrip", :user_id => 1, :cover_photo => "slide_3.jpg")
     trip2.save()
+      
+      ##Day 1##
+      day3 = Content.new(:date_time => "2011-04-19 10:44:23",
+                         :value => "New Day", :trip_id => 3, :content_type => "milestone", :milestone_index => 0)
+      day3.save()
 
     trip3 = Trip.new(:name => "Cruise to Mexico", :user_id => 1, :cover_photo => "slide_2.jpg")
     trip3.save()

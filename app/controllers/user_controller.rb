@@ -17,6 +17,16 @@ class UserController < ApplicationController
 		end
 
 	end
+    
+    
+    def changeTripName
+        curr = session["user"]
+        trip = Trip.find(params[:tripID])
+        trip.name = params[:newTitle]
+        trip.save()
+        render :nothing => true
+    end
+    
 
 	def change_cover
 		curr = session["user"]
