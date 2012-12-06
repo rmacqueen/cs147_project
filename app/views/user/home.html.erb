@@ -135,7 +135,7 @@
 								<% link = "/trip/layout/" + trip.id.to_s %>
 								<a data-ajax="false" href=<%=link%>> 
 									<div style="width: 300px; height:290px; background-size:100%; background-repeat:no-repeat; background-image:url(/assets/<%=trip.cover_photo%>)"> 
-										<div id=<%="page_title"+trip.id.to_s%> class="page_title"><%=trip.name%></div>
+										<div id=<%="large_page_title"+trip.id.to_s%> class="page_title"><%=trip.name%></div>
 									</div>
 								</a>
 								<!-- <a data-ajax="false" href=<%=link%>> <%= image_tag trip.cover_photo, :alt=>trip.name, :width=>366 %></a> -->
@@ -203,24 +203,20 @@ function ChangeTripTitle() {
 	newTitle = field.value;
 	console.log("in change trip");
 	container = document.getElementById("rename_link");
-	console.log(container);
 	container.innerHTML = "Rename";
 	
-	captionID = currentTripID;
-	captionIDString = "caption_" + captionID;
-	caption = document.getElementById(captionIDString);
-	console.log(caption);
-	caption.innerHTML = newTitle;
+	title = document.getElementById("large_page_title" + currentTripID);
+	title.innerHTML = newTitle;
 
-	icon_name = "page_title" + captionID;
-	console.log("icon name: " + icon_name);
+	icon_name = "page_title" + currentTripID;
+
 	icon = document.getElementById(icon_name);
-	console.log(icon);
+
 	icon.innerHTML = newTitle;
 
 	xhr = new XMLHttpRequest();
 	//xhr.onreadystatechange = xhrHandler;
-	url = '/user/changeTripName?tripID=' + captionID + '&newTitle=' + newTitle;
+	url = '/user/changeTripName?tripID=' + currentTripID + '&newTitle=' + newTitle;
 	console.log(url);
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
@@ -234,16 +230,15 @@ function editTripName() {
 		console.log("in edit Trip Name");
 		container = document.getElementById("rename_link");
 		container.innerHTML = "";
-		captionID = currentTripID;
-		console.log("captionID: " + captionID);
-		captionIDString = "caption_" + captionID;
-		caption = document.getElementById(captionIDString);
-		console.log(captionIDString);
+
+
+		title = document.getElementById("large_page_title" + currentTripID);
+		
 	
 		editField = document.createElement("input");
 		editField.type = 'text';
 		editField.id = 'renameField';
-		editField.value = caption.innerHTML;
+		editField.value = title.innerHTML;
 		editField.onkeypress = ChangeTripTitleWrapper;
 		editField.style = 'height: 20px; width: 250px; position:relative; top: -5px;';
 		container.appendChild(editField);
