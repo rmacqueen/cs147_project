@@ -2,6 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
 .wrapper{
 	position: relative;
 	overflow:hidden;
@@ -51,6 +52,8 @@
 img{
 	width:100%;
 }
+
+
 
 .movie{
 	width: 100%;
@@ -212,11 +215,6 @@ video{
 	padding-bottom: 1px;
 }
 
-
-.journal_text{
-	margin-top: -2px;
-}
-
 /* Footer */
 
 #footer{
@@ -263,23 +261,25 @@ video{
 }
 
 .journal_text{
-	font-size: 200%;
+	font-size: 150%;
 	word-wrap:break-word;
 }
-
+.nav-glyphish-example .ui-btn .ui-btn-inner { padding-top: 40px !important; }
+		.nav-glyphish-example .ui-btn .ui-icon { width: 30px!important; height: 30px!important; margin-left: -15px !important; box-shadow: none!important; -moz-box-shadow: none!important; -webkit-box-shadow: none!important; -webkit-border-radius: 0 !important; border-radius: 0 !important; }
+		
 #photo .ui-icon { 
-	background:  url(res/icon_photo1.png) 50% 50% no-repeat;  
-	background-size: 20px 20px; 
+	background:  url(res/icon_photo.png) 50% 50% no-repeat;  
+	background-size: 24px 20px; 
 }
 
 #video .ui-icon { 
-	background:  url(res/icon_video1.png) 50% 50% no-repeat;  
-	background-size: 24px 24px; 
+	background:  url(res/icon_video.png) 50% 50% no-repeat;  
+	background-size: 28px 24px; 
 }
 
 #text .ui-icon { 
-	background:  url(res/icon_text1.png) 50% 50% no-repeat; 
-	background-size: 24px 24px; 
+	background:  url(res/icon_text.png) 50% 50% no-repeat; 
+	background-size: 28px 24px; 
 }
 
 #more .ui-icon { 

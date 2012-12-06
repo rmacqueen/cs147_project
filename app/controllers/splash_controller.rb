@@ -47,8 +47,8 @@ class SplashController < ApplicationController
 
 		if @user.valid?
 			@user.save
-			trip = Trip.new(:name => "New Trip", :user_id => @user.id, :cover_photo => "stock.jpg")
-    		trip.save()
+			#trip = Trip.new(:name => "New Trip", :user_id => @user.id, :cover_photo => "stock.jpg")
+    		#trip.save()
 			session["user"] = @user.id
 			redirect_to "/user/home/" + @user.id.to_s	
 		else

@@ -29,11 +29,13 @@
 	<div data-role="header" data-position="fixed">
 		<a href="/user/home/1" class="ui-btn-left" data-ajax="false">Back</a>
 		<h1><%= @trip.name %></h1>
-		<% if params[:edit] == "true" %>
-		<a href="/trip/layout/<%= params[:id] %>" class="ui-btn-right" data-theme="b" data-ajax="false">Done</a>
-		<% else %>
-		<a href="/trip/layout/<%=@trip.id%>?edit=true" class="ui-btn-right" data-theme="b" data-ajax="false">Edit Trip</a>
-		<% end %>
+		<% edit_label = "Edit Trip" %>
+		<% if params[:edit] %>
+			<% edit_label = "Done" %>
+		<% end %>		
+
+		<a href="#" id="edit_trip_button" class="ui-btn-right" data-theme="b" data-ajax="false" onclick="edit_trip()"><%=edit_label%></a>
+
 
 
 	</div><!-- /header -->
@@ -52,8 +54,8 @@
 	<% lastMilestoneIndex = 0 %>
 		<% i = 0 %>
 <% for content in @all_content %>
-	<% if params[:edit] == "true" && content.milestone_index != lastMilestoneIndex %>
-		<div class="newContentWrapper">
+	<% if content.milestone_index != lastMilestoneIndex %>
+		<div style="display:none;" class="newContentWrapper">
 			<div class="placeholder" onclick="showEditFooter(<%= lastMilestoneIndex %>)">
 				<h3>Tap to add more</h3>
 			</div>
@@ -68,11 +70,9 @@
 
 	<% if content.content_type == "milestone" %>
 		<% firstItem = false %>
-		<% if params[:edit] == "true" %>
-		<h2 class="days" id="milestone_id_<%= content.id %>"><%= content.value %> – <a class="editMilestoneTitle" onclick = "EditMilestoneTitle(<%= content.id %>)">edit </a> </h2>
-		<% else %>
-		<h2 class="days"><%= content.value %></h2>
-		<% end %>
+
+		<h2 class="days" id="milestone_id_<%= content.id %>"><%= content.value %> <span style="display:none;" class="edit_day_link">– <a class="editMilestoneTitle" onclick = "EditMilestoneTitle(<%= content.id %>)">edit </a> </span></h2>
+		
 		<% i = 0 %>
 		<% next %> 
 	<% end %>
@@ -92,7 +92,7 @@
 	<% end %>
 
 	<% if content.content_type == "image" %>
-		<%= render :partial => "image", :locals => {:content => content.value, :frame => klass, :width => content.width, :height => content.height} %>
+		<%= render :partial => "image", :locals => {:content_id => content.id, :content => content.value, :frame => klass, :width => content.width, :height => content.height} %>
 	<% end %>
 
 
@@ -127,8 +127,8 @@
 	<% i+=1 %>
 <% end %>
 
-<% if params[:edit] == "true" %>
-	<div class="newContentWrapper">
+
+	<div class="newContentWrapper" style="display:none;">
 		<div class="placeholder" onclick="showEditFooter(<%= lastMilestoneIndex %>)">
 			<h3>Tap to add more</h3>
 		</div>
@@ -136,11 +136,13 @@
 			<h3>Add Milestone</h3>
 		</div>
 	</div>
-<% end %>
+
 
 </div><!-- /content -->
 
 <script>
+
+
 
 var uploadMilestoneIndex = 0;
 
@@ -189,6 +191,44 @@ function addNewMilestone(lastMilestoneIndex) {
 }
 
 // var bypass = false;
+isEdit = false;
+
+function edit_trip(){
+	isEdit = !isEdit;
+	elems = document.getElementsByClassName("newContentWrapper");
+
+	for(i = 0; i < elems.length; i++){
+		console.log(elems[i]);
+		if(isEdit){
+			elems[i].style.display="";	
+		}else{
+			elems[i].style.display="none";
+		}
+		
+	}
+	console.log(isEdit);
+	if(isEdit){
+		console.log(document.getElementById("edit_trip_button"));
+		$("#edit_trip_button .ui-btn-text").text("Done");
+	}else{
+		$("#edit_trip_button .ui-btn-text").text("Edit Trip");
+	}
+	
+	milestones = document.getElementsByClassName("edit_day_link");
+	for(i = 0; i < milestones.length; i++){
+		milestone = milestones[i];
+		if(isEdit){
+			milestone.style.display = "";
+		}else{
+			milestone.style.display = "none";
+		}
+	}
+
+}
+
+<% if params[:edit] %>
+	edit_trip();
+<% end %>
 
 function showEditFooter(milestoneIndex) {
 	uploadMilestoneIndex = milestoneIndex;
@@ -336,12 +376,12 @@ function showEditFooter(milestoneIndex) {
 				
 			</li>
 
-			<li><a href="#" id="key" data-icon="custom" onclick="getVideoFile()">Video</a>
+			<li><a href="#" id="video" data-icon="custom" onclick="getVideoFile()">Video</a>
 				<div style='height: 0px;width: 0px; overflow:hidden;'></div>
 
 			</li>
 			<li><a href="/trip/add?trip_id=1" id="text" data-icon="custom" data-ajax="false" >Text</a></li>
-			<li><a href="#" id="more" data-icon="custom" data-ajax="false">More</a></li>
+			<li><a href="#" id="more" data-icon="custom" data-ajax="false" onClick="alert('coming soon!')">More</a></li>
 		</ul>
 		 
 		<% end %>

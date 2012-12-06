@@ -1,15 +1,22 @@
 <div class=<%=frame%> >
-<div class="image_test">
 
+<a name=<%="content_"+content_id.to_s%> > </a>
+
+<div class="image_test">
+<% img_layout = "portrait" %>
 <% if width > height %>
 
-	<%= image_tag content, :class => "landscape" %> 
-
-<% else %>
-
-	<%= image_tag content, :class => "portrait" %> 
+	<% img_layout = "landscape" %>
 
 <% end %>
+
+<a href=<%="#image_popup" + content_id.to_s %> data-rel="popup">
+	<%= image_tag content, :class => img_layout %> 
+</a>
+
+<div data-role="popup" data-overlay-theme="a" id=<%="image_popup" + content_id.to_s %>>
+  <%= image_tag content %>
+</div>
 
 </div>
 </div>

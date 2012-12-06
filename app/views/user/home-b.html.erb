@@ -3,13 +3,12 @@
 <html>
 
 <head>
-	<title>tripselektor</title> 
+	<title>Tripselektor</title> 
 	<meta charset="utf-8">
 	<meta name="apple-mobile-web-app-capable" content="yes">
  	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<%= stylesheet_link_tag "jquery.mobile-1.2.0" %>
-	<%= stylesheet_link_tag "slides" %>
 	<%= stylesheet_link_tag "style" %>
 	<%= stylesheet_link_tag "popover" %>
 
@@ -20,12 +19,33 @@
     <%= javascript_include_tag "popover.js" %>
     
 
-    <%= javascript_include_tag "slides.min.jquery.js" %>
+    <%= javascript_include_tag "slides.js" %>
 	
 
 </head> 
 <body> 
 
+	<div id="my-popover">
+  <div class="header">
+  	<h3>Change Trip</h3>
+  </div>
+  <div class="content">
+    <p> <a data-ajax="false" id="rename_link" href="#" onclick="editTripName()">Rename</a> </p>
+    
+  	<%= form_for :content, :html=>{:name=>"myForm", :multipart=>true, "data-ajax" => "false"}, :url => {:action => :change_cover} do |form| %>
+  	<p> <a data-ajax="false" id="change_cover_link" href="#" onclick="getImageFile()">Change Cover Photo</a> </p>
+
+  	<div style='height: 0px;width: 0px; overflow:hidden; visibility:hidden'>
+  		<%= form.text_field :trip_id, :id=>"cover_trip_id" %>
+  		<%= form.file_field :image, :accepts=>"image/*", :id=>"upfile_image", :onchange=>"submitForm(this, \"image\")" %>
+
+  	</div>
+
+  	<% end %>
+  	
+  	<p> <a data-ajax="false" id="delete_link" href="#">Delete Trip</a> </p>
+  </div>
+</div>
 
 <script>
 	current_slide = 1;
@@ -41,14 +61,14 @@
 
 <div data-role="page">
 
-	<div data-role="header" id="header">
+	<div data-role="header">
 		<a href="/user/settings" class="ui-btn-left" data-ajax="false">Settings</a>
-		<h1>tripselektor</h1>
+		<h1>Tripselektor</h1>
 		<a href="/trip/new_trip" class="ui-btn-right" data-ajax="false">New Trip</a>
 	</div><!-- /header -->
 
 	<div data-role="content">
-
+		<h2> Here are your trips! </h2>
 
 	<script>
 	 function changeSlides(play){
@@ -57,15 +77,15 @@
 			$('#products').slides({
 				preload: true,
 				preloadImage: '/images/loading.gif',
-				pause: 1,
+				play: play,
+				pause: 2500,
 				hoverPause: true,
 				effect: 'slide, fade',
 				crossfade: true,
-				slideSpeed: 750,
-				fadeSpeed: 1000,
+				slideSpeed: 350,
+				fadeSpeed: 500,
 				generateNextPrev: true,
 				generatePagination: false,
-				autoHeight: true,
 
 				animationStart: function(current){
 					$('.caption').animate({
@@ -86,7 +106,9 @@
 						// example return of current slide number
 						console.log('animationComplete on slide: ', current);
 						current_slide = current;
-
+						$( ".slides.playing" ).bind( "slidestop", function(event, ui) {
+  
+});
 					};
 				},
 				slidesLoaded: function() {
@@ -99,17 +121,16 @@
 }
 	</script>
 
+		<div id="container">
 
 
-			<% if @trips.length > 0 %>
-				<a href="#popupBasic" data-rel="popup" onclick="stopSlides()" style="float:right;"><%= image_tag "settings1.png", :width=>30, :height=>30 %></a>
+			<a href="#popupBasic" data-rel="popup" onclick="stopSlides()">Open Popup</a>
 
-			<% end %>
 			<div data-role="popup" id="popupBasic">
-				<h3 class="pop_link"> <a data-ajax="false" id="rename_link" href="#" onclick="editTripName()">Rename</a> </h3>
+				<p> <a data-ajax="false" id="rename_link" href="#" onclick="editTripName()">Rename</a> </p>
     
-			  	<h3 class="pop_link"><%= form_for :content, :html=>{:name=>"myForm", :multipart=>true, "data-ajax" => "false"}, :url => {:action => :change_cover} do |form| %>
-			  	 <a data-ajax="false" id="change_cover_link" href="#" onclick="getImageFile()">Change Cover Photo</a> 
+			  	<%= form_for :content, :html=>{:name=>"myForm", :multipart=>true, "data-ajax" => "false"}, :url => {:action => :change_cover} do |form| %>
+			  	<p> <a data-ajax="false" id="change_cover_link" href="#" onclick="getImageFile()">Change Cover Photo</a> </p>
 
 			  	<div style='height: 0px;width: 0px; overflow:hidden; visibility:hidden'>
 			  		<%= form.text_field :trip_id, :id=>"cover_trip_id" %>
@@ -117,69 +138,50 @@
 
 			  	</div>
 
-			  	<% end %></h3>
+			  	<% end %>
   	
-  					<h3 class="pop_link"> <a data-ajax="false" id="delete_link" href="#">Delete Trip</a> </h3>
+  					<p> <a data-ajax="false" id="delete_link" href="#">Delete Trip</a> </p>
 			</div>
 
 
 			<!-- <a id="my-button" onclick="stopSlides()">Edit Trip</a> -->
-
+		<div id="products_example">
 			<div id="products">
 				<!--<a href="#" class="delete">D</a>-->
 				<div class="slides_container" data-ajax="false">
 					<% i = 1 %>
-					<% if @trips.length > 0 %>
-						<% for trip in @trips %>
-							<div id=<%= "slide"+ i.to_s %> class="slide" trip-id=<%=trip.id %> >
-								<% link = "/trip/layout/" + trip.id.to_s %>
-								<a data-ajax="false" href=<%=link%>> 
-									<div style="width: 300px; height:290px; background-size:100%; background-repeat:no-repeat; background-image:url(/assets/<%=trip.cover_photo%>)"> 
-										<div id=<%="page_title"+trip.id.to_s%> class="page_title"><%=trip.name%></div>
-									</div>
-								</a>
-								<!-- <a data-ajax="false" href=<%=link%>> <%= image_tag trip.cover_photo, :alt=>trip.name, :width=>366 %></a> -->
-								<!-- <div class="caption" style="bottom:0">
-									<p id="caption_<%= trip.id.to_s %>"><%= trip.name %> </p>
-								</div> -->
-							</div>
-							<% i += 1 %>	
-						<% end %>
-					<% else %>
+					<% for trip in @trips %>
+					<div id=<%= "slide"+ i.to_s %> class="slide" trip-id=<%=trip.id %> >
+						<% link = "/trip/layout/" + trip.id.to_s %>
 
-						<div class="slide">
-							<h3> Your new trips will appear here in a slide show! </h3>
+						<a data-ajax="false" href=<%=link%>> <%= image_tag trip.cover_photo, :width=>"100%", :alt=>"sdf" %></a>
+						<div class="caption" style="bottom:0">
+							<p id="caption_<%= i %>"><%= trip.name %> </p>
 						</div>
-
-						<div class="slide">
-							<h3> Click on 'New Trip' in top right to create a new trip! </h3>
-						</div>
-
+					</div>
+					<% i += 1 %>
 					<% end %>
 
 				</div>
 
 				<ul class="pagination">
 					<% for trip in @trips %>
-					<li><a href="#" onClick="updateCurrent(<%=trip.id%>)"><div style="width: 130px; height:85px; background-size:100%; background-repeat:no-repeat; background-image: url(/assets/<%=trip.cover_photo%>)"><div id=<%="page_title"+trip.id.to_s%> class="page_title"><%=trip.name%></div></div></a></li>
+					<li><a href="#"><%= image_tag trip.cover_photo, :width=>55, :alt=>"sdf" %></a></li>
 					
 					<% end %>
 				</ul>
 			</div>
-
+		</div>
 	</div><!-- /content -->
 </div><!-- /page -->
 <script>
-
+$('#my-button').popover({header: '#my-popover > .header',
+    content: '#my-popover > .content'});
     
 
 var currentTripID = 0;
 var editModeActive = false;
 
-function updateCurrent(trip_id){
-	currentTripID = trip_id;
-	console.log("current " + currentTripID);
-}
 
 function ChangeTripTitleWrapper(evt) {
 	if (event.keyCode == 13) {
@@ -201,23 +203,14 @@ function ChangeTripTitle() {
 	
 	field = document.getElementById("renameField");
 	newTitle = field.value;
-	console.log("in change trip");
 	container = document.getElementById("rename_link");
-	console.log(container);
 	container.innerHTML = "Rename";
 	
 	captionID = currentTripID;
 	captionIDString = "caption_" + captionID;
 	caption = document.getElementById(captionIDString);
-	console.log(caption);
 	caption.innerHTML = newTitle;
-
-	icon_name = "page_title" + captionID;
-	console.log("icon name: " + icon_name);
-	icon = document.getElementById(icon_name);
-	console.log(icon);
-	icon.innerHTML = newTitle;
-
+	
 	xhr = new XMLHttpRequest();
 	//xhr.onreadystatechange = xhrHandler;
 	url = '/user/changeTripName?tripID=' + captionID + '&newTitle=' + newTitle;
@@ -231,7 +224,7 @@ function ChangeTripTitle() {
 function editTripName() {
 	if (!editModeActive) {
 		editModeActive = true;
-		console.log("in edit Trip Name");
+	
 		container = document.getElementById("rename_link");
 		container.innerHTML = "";
 		captionID = currentTripID;
@@ -258,34 +251,20 @@ function editTripName() {
     
 function stopSlides(){
 	//$('#products').stop();
-	var stop = $('#products').data("stop");
-	//console.log($('#products'));
-	//console.log($('#products').data);
-	//	stop();
-	// console.log("here");
- //   	$(".slide").trigger("mouseover");
-
-   	$("#popupBasic").bind({
-   		popupafterclose: function(event, ui){
-   			console.log("popup closed");
-   			$(".slide").mouseleave();
-   			
-   		}
-   	})
-   	 clearInterval($('#products').data('interval')); 
-
+	console.log("here");
+	$(".slides").each(function() { $(this).slides("stop"); });
+   	//$(".slide").trigger("mouseover");
    	console.log(current_slide);
    	elem = document.getElementById("slide" + current_slide);
    	
    	tripID = elem.getAttribute("trip-id");
-   	currentTripID = tripID;
    	
    	delete_link = document.getElementById("delete_link");
    	delete_link.href = "/user/delete_trip?trip_id=" + tripID;
    	
    	if (current_slide != currentTripID) restoreRenameToPopover();
    	
-   	//currentTripID = current_slide;
+   	currentTripID = current_slide;
    	
    	change_cover_link = document.getElementById("change_cover_link");
 

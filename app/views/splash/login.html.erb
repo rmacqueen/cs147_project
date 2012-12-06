@@ -4,7 +4,7 @@
 <html>
 
 <head>
-    <title>TripSelektor | Login</title> 
+    <title>tripSelektor | Login</title> 
     <meta charset="utf-8">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -31,7 +31,7 @@
 <div data-role="page">
 
     <div data-role="header">
-    <h1>Tripselektor</h1>
+    <h1>tripselektor</h1>
     <a href="/splash/register" class="ui-btn-right" data-theme="b">Sign up</a>
 
     </div><!-- /header -->
@@ -39,7 +39,7 @@
     <div data-role="content">
         <%=image_tag "vintage_city.jpeg", :height=>"60" %>
         
-        <a class="error_message"><%= flash[:notice] %></a>
+        <a style="color:red;"><%= flash[:notice] %></a>
     
     <form id="form" action="/splash/post_login" method="post" data-ajax="false">
         <div data-role="fieldcontain">

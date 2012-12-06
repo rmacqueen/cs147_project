@@ -1,0 +1,158 @@
+		.nav-glyphish-example .ui-btn .ui-btn-inner { padding-top: 40px !important; }
+		.nav-glyphish-example .ui-btn .ui-icon { width: 30px!important; height: 30px!important; margin-left: -15px !important; box-shadow: none!important; -moz-box-shadow: none!important; -webkit-box-shadow: none!important; -webkit-border-radius: 0 !important; border-radius: 0 !important; }
+		
+/* Home page */
+
+/*img{
+	width:100%;
+}*/
+/*
+	Slideshow
+*/
+
+#products {
+	display: block;
+	margin: auto;
+	clear:both;
+	/*width: 320px;*/
+}
+
+/*
+	Slides container
+	Important:
+	Set the width of your slides container
+	Set to display none, prevents content flash
+*/
+
+#products .slides_container {
+	/*width:320px;*/
+	overflow:hidden;
+	float:center;
+	position:relative;
+	border:1px solid #dfdfdf;
+	display:none;
+}
+
+#products .slides_container .page_title{
+	color:white;
+	background-color: black;
+	opacity:0.6;
+	font-size: 150%;
+	font-weight: normal;
+}
+
+/*
+	Each slide
+	Important:
+	Set the width of your slides
+	If height not specified height will be set by the slide content
+	Set to display block
+*/
+
+.slides_container a {
+	/*width:320px;*/
+	height:230px;
+	display:block;
+}
+
+/*
+	Next/prev buttons
+*/
+
+#products .next,#products .prev {
+	position:absolute;
+	top:127px;
+	left:0;
+	width:21px;
+	height:0;
+	padding-top:21px;
+	overflow:hidden;
+	display:block;
+	z-index:101;
+}
+
+
+
+/*#products .prev {
+	left:-20px;
+	background:url(/images/arrow-prev.png);
+}
+
+#products .next {
+	left:300px;
+	background:url(/images/arrow-next.png);
+}*/
+
+.slides_container div.slide {
+	width:320px;
+	height:270px;
+	display:block;
+}
+
+.caption {
+	z-index:500;
+	position:absolute;
+	bottom:-35px;
+	left:0;
+	height:35px;
+	padding:5px 20px 0 20px;
+	background:#000;
+	background:rgba(0,0,0,.5);
+	width:540px;
+	font-size:1.3em;
+	line-height:0;
+	color:#fff;
+	border-top:1px solid #000;
+	text-shadow:none;
+}
+
+/*
+	Pagination
+*/
+
+#products .pagination {
+	background:#dfdfdf;
+	/*width:300px;*/
+	float:left;
+	padding:5px 5px;
+	margin:auto;
+	border-radius:5px;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+}
+
+#products .pagination li {
+	float:left;
+	margin:2px 4px;
+	list-style:none;
+}
+
+#products .pagination li a {
+	display:block;
+	/*width:55px;
+	height:41px;*/
+	margin:1px;
+	float:left;
+	background:#f9f9f9;
+	text-decoration: none;
+}
+
+#products .pagination li a .page_title{
+	color:white;
+	background-color: black;
+	opacity:0.6;
+	font-size: 80%;
+	font-weight: normal;
+}
+
+#products .pagination li.current a {
+	border:1px solid #7f7f7f;
+	margin:0;
+}
+
+.caption a{
+	/*width:20px;
+	height:20px;*/
+	background:url(/images/delete.png);
+	float:right;
+}

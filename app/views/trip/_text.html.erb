@@ -1,7 +1,8 @@
 <div class=<%=frame%> onclick="openDialog(<%=content_id%>)">
 
 	<a id=<%="blog_detail_"+content_id.to_s %> style="display:none;" href=<%="/trip/view_text?content_id=" + content_id.to_s + "&trip_id=" + params[:id] %> data-rel="dialog">Open dialog</a>
-<p id="journal" class="journal_text"><%= headline %></p>
+
+<p id=<%="journal_" + content_id.to_s%> class="journal_text"><%= headline %></p>
 
 <script>
 	
