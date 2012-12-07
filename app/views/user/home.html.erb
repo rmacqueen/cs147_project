@@ -179,6 +179,7 @@ var editModeActive = false;
 function updateCurrent(trip_id){
 	currentTripID = trip_id;
 	console.log("current " + currentTripID);
+	restoreRenameToPopover();
 }
 
 function ChangeTripTitleWrapper(evt) {
@@ -192,7 +193,11 @@ function restoreRenameToPopover() {
 	editModeActive = false;
 	
 	container = document.getElementById("rename_link");
-	container.innerHTML = "Rename";
+	pop_link = container.parentNode;
+	pop_link.removeChild(pop_link.children[1]);
+	pop_link.removeChild(pop_link.children[1]);
+
+	container.style.display = "";
 }
 
 function ChangeTripTitle() {
@@ -267,7 +272,7 @@ function stopSlides(){
 
    	$("#popupBasic").bind({
    		popupafterclose: function(event, ui){
-   			console.log("popup closed");
+   			console.log("popup closed");	
    			$(".slide").mouseleave();
    			
    		}
@@ -283,7 +288,7 @@ function stopSlides(){
    	delete_link = document.getElementById("delete_link");
    	delete_link.href = "/user/delete_trip?trip_id=" + tripID;
    	
-   	//if (current_slide != currentTripID) restoreRenameToPopover();
+   	if (current_slide != currentTripID) restoreRenameToPopover();
    	
    	//currentTripID = current_slide;
    	
