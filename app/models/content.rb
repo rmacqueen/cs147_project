@@ -20,8 +20,6 @@ class Content < ActiveRecord::Base
     		content.width = size.w
     		content.height = size.h
 		end
-		
-
 
 		content.save()
 		return content

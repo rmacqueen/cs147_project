@@ -55,7 +55,8 @@
 		<% i = 0 %>
 <% for content in @all_content %>
 	<% if content.milestone_index != lastMilestoneIndex %>
-		<div style="display:none;" class="newContentWrapper">
+
+		<div style="display:none;" class="newContentWrapper" >
 			<div class="placeholder" onclick="showEditFooter(<%= lastMilestoneIndex %>)">
 				<h3>Tap to add more</h3>
 			</div>
@@ -181,12 +182,13 @@ function getImageFile(){
 function getVideoFile(){
 	console.log("Getting a video")
 	e = document.getElementById("upfile_video");
-	console.log(e);
+
 
    document.getElementById("upfile_video").click();
  }
  
 function addNewMilestone(lastMilestoneIndex) {
+	
  	window.location = "/trip/add_milestone?trip_id=" + <%=@trip.id%> + "&lastMilestone=" + lastMilestoneIndex;
 }
 
@@ -206,21 +208,20 @@ function edit_trip(){
 		}
 		
 	}
-	console.log(isEdit);
+	console.log("is Edit: " + isEdit);
 	if(isEdit){
-		console.log(document.getElementById("edit_trip_button"));
 		$("#edit_trip_button .ui-btn-text").text("Done");
 	}else{
 		$("#edit_trip_button .ui-btn-text").text("Edit Trip");
 	}
 	
-	milestones = document.getElementsByClassName("edit_day_link");
-	for(i = 0; i < milestones.length; i++){
-		milestone = milestones[i];
+	edit_links = document.getElementsByClassName("edit_day_link");
+	for(i = 0; i < edit_links.length; i++){
+		edit_link = edit_links[i];
 		if(isEdit){
-			milestone.style.display = "";
+			edit_link.style.display = "";
 		}else{
-			milestone.style.display = "none";
+			edit_link.style.display = "none";
 		}
 	}
 
@@ -281,18 +282,25 @@ function showEditFooter(milestoneIndex) {
 	
 	
 	function ChangeMilestoneTitle() {
+		console.log("changing milestone title");
 		field = document.getElementById("milestoneEditor");
 		newTitle = field.value;
 		milestone = document.getElementById("milestone_id_" + editingMilestoneID);
+		//console.log(milestone.children);
+
 		milestone.removeChild(field);
-		oldTitle = milestone.innerHTML.split('<');
-		temp = newTitle + ' – <a class="editMilestoneTitle ui-link" onclick = "EditMilestoneTitle(' + editingMilestoneID + ')">edit </a> </h2>';
-		milestone.innerHTML = temp;
+		
+		milestone.removeChild(milestone.children[0]);
+		edit_span = milestone.children[0];
+		edit_span.style.display = "";
+
+		milestone.insertAdjacentHTML('afterbegin', newTitle);
+
 		xhr = new XMLHttpRequest();
 		//xhr.onreadystatechange = xhrHandler;
-		console.log(<%= @trip_id %>);
+
 		url = '/trip/changeMilestoneName/' + <%= @trip_id %> + '?milestone=' + editingMilestoneID + '&newTitle=' + newTitle;
-		console.log(url);
+
 		xhr.open("POST", url, true);
 		xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
 		xhr.send("");
@@ -303,25 +311,33 @@ function showEditFooter(milestoneIndex) {
 		editingMilestoneID = milestoneID;
 		milestone = document.getElementById("milestone_id_" + milestoneID);
 		currentTitle = milestone.innerHTML.split('<');
-		
-		editField = document.createElement("input");
-		editField.type = 'text';
-		editField.id = 'milestoneEditor';
-		editField.value = currentTitle[0].substring(0, currentTitle[0].length - 3);
-		editField.onkeypress = ChangeMilestoneTitleWrapper;
-		editField.style = 'height: 20px; width: 250px; position:relative; top: -5px;';
-		milestone.innerHTML = "";
-		milestone.appendChild(editField);
-		
-		dash = document.createElement("a");
-		dash.innerHTML = " – ";
-		milestone.appendChild(dash);
-		
+
+		edit_span = milestone.children[0];
+		edit_span.style.display = "none";
+
+
 		saveButton = document.createElement("a");
 		saveButton.className = 'editMilestoneTitle ui-link';
 		saveButton.onclick = ChangeMilestoneTitle;
 		saveButton.innerHTML = "save";
+
+
+		editField = document.createElement("input");
+		editField.type = 'text';
+		editField.id = 'milestoneEditor';
+		editField.value = currentTitle[0]
+		editField.onkeypress = ChangeMilestoneTitleWrapper;
+		editField.style = 'height: 20px; width: 250px; position:relative; top: -5px;';
+		milestone.innerHTML = "";
+		milestone.appendChild(editField);
 		milestone.appendChild(saveButton);
+		milestone.appendChild(edit_span);
+
+		
+		//dash = document.createElement("a");
+		//dash.innerHTML = " – ";
+		//milestone.appendChild(dash);
+		
 	}
 	
 </script>

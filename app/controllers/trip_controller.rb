@@ -8,9 +8,7 @@ class TripController < ApplicationController
 		trip = Trip.new(:cover_photo => "stock.jpg", :name => "New Trip", :user_id => session["user"])
 		trip.save()
 		time = Time.new()
-		day = Content.new(:date_time => time, :value => "New Day", :trip_id => trip.id, :content_type => "milestone", :milestone_index => 0)
-		day.save()
-		
+		Content.save_content("milestone", "New Day", trip.id, 0, "");		
 		redirect_to "/trip/layout/" + trip.id.to_s
 	end
 
@@ -113,9 +111,7 @@ class TripController < ApplicationController
             end
         end
         
-        day = Content.new(:date_time => time, :value => "New Day", :trip_id => trip.id, :content_type => "milestone", :milestone_index => newMilestoneIndex)
-        day.save()
-        
+        Content.save_content("milestone", "New Day", trip.id, newMilestoneIndex, "")
         urlForRedirect = "/trip/layout/" + params[:trip_id] + "?edit=true"
         redirect_to urlForRedirect
         
