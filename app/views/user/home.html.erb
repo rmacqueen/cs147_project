@@ -195,7 +195,6 @@ function restoreRenameToPopover() {
 	container.innerHTML = "Rename";
 }
 
-
 function ChangeTripTitle() {
 	editModeActive = false;
 	
@@ -203,7 +202,12 @@ function ChangeTripTitle() {
 	newTitle = field.value;
 	console.log("in change trip");
 	container = document.getElementById("rename_link");
-	container.innerHTML = "Rename";
+	pop_link = container.parentNode;
+	pop_link.removeChild(pop_link.children[1]);
+	pop_link.removeChild(pop_link.children[1]);
+
+	container.style.display = "";
+
 	
 	title = document.getElementById("large_page_title" + currentTripID);
 	title.innerHTML = newTitle;
@@ -229,8 +233,9 @@ function editTripName() {
 		editModeActive = true;
 		console.log("in edit Trip Name");
 		container = document.getElementById("rename_link");
-		container.innerHTML = "";
 
+		pop_link = container.parentNode;
+		container.style.display = "none";
 
 		title = document.getElementById("large_page_title" + currentTripID);
 		
@@ -241,13 +246,13 @@ function editTripName() {
 		editField.value = title.innerHTML;
 		editField.onkeypress = ChangeTripTitleWrapper;
 		editField.style = 'height: 20px; width: 250px; position:relative; top: -5px;';
-		container.appendChild(editField);
+		pop_link.appendChild(editField);
 	
 		saveButton = document.createElement("a");
 		saveButton.className = 'ui-link';
 		saveButton.onclick = ChangeTripTitle;
 		saveButton.innerHTML = "save";
-		container.appendChild(saveButton);
+		pop_link.appendChild(saveButton);
 	}
 }    
     
@@ -278,7 +283,7 @@ function stopSlides(){
    	delete_link = document.getElementById("delete_link");
    	delete_link.href = "/user/delete_trip?trip_id=" + tripID;
    	
-   	if (current_slide != currentTripID) restoreRenameToPopover();
+   	//if (current_slide != currentTripID) restoreRenameToPopover();
    	
    	//currentTripID = current_slide;
    	
